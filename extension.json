@@ -1,0 +1,12 @@
+{
+  "code": "igniter.socialite",
+  "name": "Socialite",
+  "description": "Allows visitors to register/sign in with their social media accounts.",
+  "version": "0.1.0-beta",
+  "author": "SamPoyigi",
+  "icon": "fa-users",
+  "homepage": "https://github.com/tastyigniter/ti-ext-socialite",
+  "require": {
+    "igniter.user": "*"
+  }
+}
