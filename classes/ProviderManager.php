@@ -120,10 +120,9 @@ class ProviderManager
         }
     }
 
-    /*
+    /**
      * Registers a single social provider.
      */
-
     public function registerProvider($className, $providerInfo = null)
     {
         $providerCode = $providerInfo['code'] ?? null;

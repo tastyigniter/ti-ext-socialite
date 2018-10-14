@@ -90,6 +90,17 @@ abstract class BaseProvider
         return !empty($this->getSetting('status', 0));
     }
 
+    public function handleProviderException(Exception $ex)
+    {
+        if ($ex instanceof InvalidStateException) {
+            flash()->error('Invalid State');
+        }
+        else {
+            Log::error($ex);
+            flash()->error('Could not read user information from social provider: '.$ex->getMessage());
+        }
+    }
+
     /**
      * Add any provider-specific settings to the settings form. Add a partial
      * with a set of steps to follow to retrieve the credentials, an enabled
@@ -134,15 +145,4 @@ abstract class BaseProvider
      * @return \Laravel\Socialite\AbstractUser
      */
     abstract public function handleProviderCallback();
-
-    protected function handleProviderException(Exception $ex)
-    {
-        if ($ex instanceof InvalidStateException) {
-            flash()->error('Invalid State');
-        }
-        else {
-            Log::error($ex);
-            flash()->error('Could not read user information from social provider: '.$ex->getMessage());
-        }
-    }
 }
