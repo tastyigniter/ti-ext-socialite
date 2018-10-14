@@ -1,13 +1,13 @@
-The Socialite extension for TastyIgniter allows customers to register and log in with their 
+This extension for TastyIgniter allows customers to register and log in with their 
 Facebook, Google, Twitter and other social media accounts. 
 
-This extension requires the `Igniter User` extension to add social provider based logins to your TastyIgniter website
+This extension requires the `Igniter User` extension to add social provider based login to your TastyIgniter website
 
 ### Supports
 - Facebook
 - Twitter
 - Google
-- Extensible! Easily add the one you want!
+- **Extensible!** Easily add the one you want!
 
 **Adapters** for other platforms are listed at the community driven (Socialite Providers website)[https://socialiteproviders.github.io/].
 
@@ -26,6 +26,7 @@ You need to enable each social network that you would like to use under Users ta
 ```
 
 ### Components
+
 | Name     | Page variable                | Description                                      |
 | -------- | ---------------------------- | ------------------------------------------------ |
 | Socialite | `<?= component('socialite') ?>` | Displays the social networks login buttons              |
