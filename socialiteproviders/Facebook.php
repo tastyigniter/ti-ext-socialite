@@ -16,7 +16,7 @@ class Facebook extends BaseProvider
         $form->addFields([
             'setup' => [
                 'type' => 'partial',
-                'path' => '$/igniter/socialite/socialiteproviders/facebook/_info',
+                'path' => '$/igniter/socialite/socialiteproviders/facebook/info',
                 'tab' => 'Facebook',
             ],
             'providers[facebook][status]' => [

@@ -16,8 +16,8 @@ You need to enable each social network that you would like to use under Users ta
 `System > Settings > Socialite settings`. Follow the instructions given below for each social network you would like to use. 
 
 ### Usage
-- Add User and Socialite components to your login page
-- Copy /extensions/igniter/user/components/account/login.php to your themes _partials/account folder
+- Add `User` and `Socialite` components to your login page
+- Copy `/extensions/igniter/user/components/account/login.php` to your themes `_partials/account` folder
 - Where you want your login links, add
 ```
 <?php foreach($socialiteLinks as $name => $link) { ?>

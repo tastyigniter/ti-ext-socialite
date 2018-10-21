@@ -16,7 +16,7 @@ class Google extends BaseProvider
         $form->addFields([
             'setup' => [
                 'type' => 'partial',
-                'path' => '$/igniter/socialite/socialiteproviders/google/_info',
+                'path' => '$/igniter/socialite/socialiteproviders/google/info',
                 'tab' => 'Google',
             ],
             'providers[google][status]' => [

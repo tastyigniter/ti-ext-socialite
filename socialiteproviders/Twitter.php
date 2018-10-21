@@ -24,7 +24,7 @@ class Twitter extends BaseProvider
         $form->addFields([
             'setup' => [
                 'type' => 'partial',
-                'path' => '$/igniter/socialite/socialiteproviders/twitter/_info',
+                'path' => '$/igniter/socialite/socialiteproviders/twitter/info',
                 'tab' => 'Twitter',
             ],
             'providers[twitter][status]' => [

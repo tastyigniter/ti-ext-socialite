@@ -95,16 +95,8 @@ class ProviderManager
             $callback($this);
         }
 
-        $extensions = $this->extensionManager->getExtensions();
-        foreach ($extensions as $extension) {
-            if (!method_exists($extension, 'registerSocialiteProviders'))
-                continue;
-
-            $socialProviders = $extension->registerSocialiteProviders();
-            if (!is_array($socialProviders)) {
-                continue;
-            }
-
+        $registeredProviders = ExtensionManager::instance()->getRegistrationMethodValues('registerSocialiteProviders');
+        foreach ($registeredProviders as $extensionCode => $socialProviders) {
             $this->registerProviders($socialProviders);
         }
     }
@@ -122,6 +114,8 @@ class ProviderManager
 
     /**
      * Registers a single social provider.
+     * @param $className
+     * @param null $providerInfo
      */
     public function registerProvider($className, $providerInfo = null)
     {
