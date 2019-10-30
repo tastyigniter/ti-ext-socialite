@@ -3,6 +3,6 @@
   "type": "igniter-extension",
   "keywords": ["tastyigniter", "social", "login", "facebook", "twitter", "google"],
   "require": {
-    "laravel/socialite": "3.1.*"
+    "laravel/socialite": "~4.2"
   }
 }
