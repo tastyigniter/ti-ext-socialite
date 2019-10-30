@@ -1,5 +1,4 @@
-This extension for TastyIgniter allows customers to register and log in with their 
-Facebook, Google, Twitter and other social media accounts. 
+This extension for TastyIgniter allows customers to register and log in with their Facebook, Google, Twitter and other social media accounts. 
 
 This extension requires the `Igniter User` extension to add social provider based login to your TastyIgniter website
 
