@@ -4,7 +4,11 @@
   "description": "Allows visitors to register/sign in with their social media accounts.",
   "version": "v1.0.2",
   "author": "SamPoyigi",
-  "icon": "fa-users",
+  "icon": {
+    "class": "fa fa-users",
+    "color": "#1F4E62",
+    "backgroundColor": "#4FC3F7"
+  },
   "homepage": "https://github.com/tastyigniter/ti-ext-socialite",
   "require": {
     "igniter.user": "*"

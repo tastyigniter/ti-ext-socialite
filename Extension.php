@@ -31,7 +31,7 @@ class Extension extends BaseExtension
                 'icon' => 'fa fa-users',
                 'model' => 'Igniter\Socialite\Models\Settings',
                 'priority' => 700,
-            ]
+            ],
         ];
     }
 
@@ -41,17 +41,17 @@ class Extension extends BaseExtension
             \Igniter\Socialite\SocialiteProviders\Facebook::class => [
                 'code' => 'facebook',
                 'label' => 'Facebook',
-                'description' => 'Log in with Facebook'
+                'description' => 'Log in with Facebook',
             ],
             \Igniter\Socialite\SocialiteProviders\Google::class => [
                 'code' => 'google',
                 'label' => 'Google',
-                'description' => 'Log in with Google'
+                'description' => 'Log in with Google',
             ],
             \Igniter\Socialite\SocialiteProviders\Twitter::class => [
                 'code' => 'twitter',
                 'label' => 'Twitter',
-                'description' => 'Log in with Twitter'
+                'description' => 'Log in with Twitter',
             ],
         ];
     }
@@ -59,7 +59,11 @@ class Extension extends BaseExtension
     public function registerComponents()
     {
         return [
-            'Igniter\Socialite\Components\Socialite' => 'socialite',
+            'Igniter\Socialite\Components\Socialite' => [
+                'code' => 'socialite',
+                'name' => 'Socialite component',
+                'description' => 'Displays the social networks login buttons',
+            ],
         ];
     }
 
