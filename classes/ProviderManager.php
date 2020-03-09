@@ -7,7 +7,7 @@ use Event;
 use Exception;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Socialite\Models\Provider;
-use Input;
+use Illuminate\Support\Facades\Request;
 use Redirect;
 use Session;
 use Str;
@@ -162,28 +162,30 @@ class ProviderManager
         }
 
         $code = array_get($providerInfo, 'code');
+
         return new $className($code);
     }
 
     /**
      * Executes an entry point for registered social providers, defined in routes.php file.
      *
-     * @param  string $code Social provider code
-     * @param  string $action auth: redirect to provider or callback: handle response
+     * @param string $code Social provider code
+     * @param string $action auth: redirect to provider or callback: handle response
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public static function runEntryPoint($code, $action)
     {
         $redirect = Session::get('igniter_socialite_redirect', ['/', '/login']);
-        list($successUrl, $errorUrl) = $redirect;
-        $successUrl = Input::get('success', $successUrl);
-        $errorUrl = Input::get('error', $errorUrl);
+        [$successUrl, $errorUrl] = $redirect;
+        $successUrl = Request::get('success', $successUrl);
+        $errorUrl = Request::get('error', $errorUrl);
 
         $manager = self::instance();
         $providerClassName = $manager->resolveProvider($code);
         if (!$providerClassName) {
             flash()->error("Unknown socialite provider: $providerClassName.");
+
             return Redirect::to($errorUrl);
         }
 
@@ -191,6 +193,7 @@ class ProviderManager
 
         if ($action != 'callback') {
             Session::flash('igniter_socialite_redirect', [$successUrl, $errorUrl]);
+
             return $provider->redirectToProvider();
         }
 
