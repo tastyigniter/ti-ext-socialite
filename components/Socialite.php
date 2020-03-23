@@ -3,12 +3,11 @@
 namespace Igniter\Socialite\Components;
 
 use Igniter\Socialite\Classes\ProviderManager;
-use Main\Traits\HasPageOptions;
 use System\Classes\BaseComponent;
 
 class Socialite extends BaseComponent
 {
-    use HasPageOptions;
+    use \Main\Traits\UsesPage;
 
     public function defineProperties()
     {
@@ -17,13 +16,13 @@ class Socialite extends BaseComponent
                 'label' => 'The page to redirect to when an error occurred',
                 'type' => 'select',
                 'default' => 'account/login',
-                'options' => [static::class, 'getPageOptions'],
+                'options' => [static::class, 'getThemePageOptions'],
             ],
             'successPage' => [
                 'label' => 'The page to redirect to when login is successful',
                 'type' => 'select',
                 'default' => 'account/account',
-                'options' => [static::class, 'getPageOptions'],
+                'options' => [static::class, 'getThemePageOptions'],
             ],
         ];
     }
