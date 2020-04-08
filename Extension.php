@@ -26,8 +26,8 @@ class Extension extends BaseExtension
     {
         return [
             'settings' => [
-                'label' => 'Socialite',
-                'description' => 'Manage Socialite providers.',
+                'label' => 'Configure Socialite',
+                'description' => 'Configure Socialite providers with API credentials.',
                 'icon' => 'fa fa-users',
                 'model' => 'Igniter\Socialite\Models\Settings',
                 'priority' => 700,
