@@ -9,7 +9,7 @@
     "color": "#1F4E62",
     "backgroundColor": "#4FC3F7"
   },
-  "homepage": "https://github.com/tastyigniter/ti-ext-socialite",
+  "homepage": "https://tastyigniter.com/marketplace/item/igniter-socialite",
   "require": {
     "igniter.user": "*"
   }
