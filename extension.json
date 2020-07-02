@@ -2,7 +2,7 @@
   "code": "igniter.socialite",
   "name": "Socialite",
   "description": "Allows visitors to register/sign in with their social media accounts.",
-  "version": "v1.0.5",
+  "version": "v1.0.6",
   "author": "SamPoyigi",
   "icon": {
     "class": "fa fa-users",
