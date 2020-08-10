@@ -1,4 +1,4 @@
-<div class="alert alert-info">
+<div class="alert text-reset">
     <h4>How to retrieve your credentials</h4>
     <ol class="pl-3">
         <li>Go to <a target="_blank" href="https://apps.twitter.com/">https://apps.twitter.com/</a> and create a new
