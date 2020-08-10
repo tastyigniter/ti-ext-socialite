@@ -89,9 +89,11 @@ class Provider extends Model
             'email' => $providerUser->getEmail(),
             // Generate a random password for the new user
             'password' => str_random(16),
+            // Assign the new user to default group
+            'customer_group_id' => setting('customer_group_id'),
         ];
 
-        $user = Auth::register($data);
+        $user = Auth::register($data, TRUE);
 
         return self::attachProvider($user, $provider);
     }
