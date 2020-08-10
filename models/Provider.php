@@ -90,12 +90,10 @@ class Provider extends Model
             // Generate a random password for the new user
             'password' => str_random(16),
             // Assign the new user to default group
-            'customer_group_id' => 1,
-            // New user enabled by default
-            'status' => 1,
+            'customer_group_id' => setting('customer_group_id'),
         ];
 
-        $user = Auth::register($data);
+        $user = Auth::register($data, TRUE);
 
         return self::attachProvider($user, $provider);
     }
