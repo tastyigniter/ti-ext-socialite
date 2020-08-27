@@ -6,8 +6,8 @@ return [
         'toolbar' => [],
         'columns' => [
             'id' => [
-                'label' => 'ID'
-            ]
+                'label' => 'ID',
+            ],
         ],
     ],
     'form' => [
@@ -18,9 +18,9 @@ return [
                 'id' => [
                     'label' => 'ID',
                     'type' => 'number',
-                    'invisible' => TRUE
-                ]
-            ]
-        ]
+                    'invisible' => TRUE,
+                ],
+            ],
+        ],
     ],
 ];

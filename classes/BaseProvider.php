@@ -83,7 +83,7 @@ abstract class BaseProvider
     /**
      * Return true if the settings form has the status 'enabled'.
      *
-     * @return boolean
+     * @return bool
      */
     public function isEnabled()
     {

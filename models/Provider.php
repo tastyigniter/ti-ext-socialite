@@ -33,7 +33,7 @@ class Provider extends Model
      */
     public $relation = [
         'belongsTo' => [
-            'user' => ['Admin\Models\Customers_model']
+            'user' => ['Admin\Models\Customers_model'],
         ],
     ];
 
@@ -53,6 +53,7 @@ class Provider extends Model
 
         if ($provider->exists AND $provider->user) {
             $provider->save();
+
             return $provider->user;
         }
 
@@ -64,6 +65,7 @@ class Provider extends Model
         // The user may have been deleted. Make sure this isn't the case
         if (!$provider->user) {
             $provider->delete();
+
             return self::findOrCreateUser($providerUser, $provider);
         }
 
