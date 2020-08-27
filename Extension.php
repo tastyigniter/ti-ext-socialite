@@ -1,4 +1,6 @@
-<?php namespace Igniter\Socialite;
+<?php
+
+namespace Igniter\Socialite;
 
 use Admin\Widgets\Form;
 use Event;
