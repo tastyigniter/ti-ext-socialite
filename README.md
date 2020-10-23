@@ -19,16 +19,16 @@ You need to enable each social network that you would like to use under Users ta
 - Copy `/extensions/igniter/user/components/account/login.php` to your themes `_partials/account` folder
 - Where you want your login links, add
 ```
-<?php foreach($socialiteLinks as $name => $link) { ?>
-    <a href="<?= $link; ?>"><i class="fab fa-2x fa-<?= $name; ?>"></i></a>
-<?php } ?>
+@foreach($socialiteLinks as $name => $link)
+    <a href="{{ $link }}"><i class="fab fa-2x fa-{{ $name }}"></i></a>
+@endforeach
 ```
 
 ### Components
 
 | Name     | Page variable                | Description                                      |
 | -------- | ---------------------------- | ------------------------------------------------ |
-| Socialite | `<?= component('socialite') ?>` | Displays the social networks login buttons              |
+| Socialite | `@component('socialite')` | Displays the social networks login buttons              |
 
 ### Socialite Component
 
@@ -43,7 +43,7 @@ You need to enable each social network that you would like to use under Users ta
 
 | Variable                  | Description                                                  |
 | ------------------------- | ------------------------------------------------------------ |
-| $socialiteLinks | Array of social links                                                |
+| `{{ $socialiteLinks }}` | Array of social links                                                |
 
 **Example:**
 
@@ -57,7 +57,7 @@ permalink: /login
     successPage: account/account
 ---
 ...
-<?= component('socialite') ?>
+@component('socialite')
 ...
 ```
 
