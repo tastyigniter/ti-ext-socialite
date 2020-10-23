@@ -17,12 +17,14 @@ class Socialite extends BaseComponent
                 'type' => 'select',
                 'default' => 'account/login',
                 'options' => [static::class, 'getThemePageOptions'],
+                'validationRule' => 'required|regex:/^[a-z0-9\-_\/]+$/i',
             ],
             'successPage' => [
                 'label' => 'The page to redirect to when login is successful',
                 'type' => 'select',
                 'default' => 'account/account',
                 'options' => [static::class, 'getThemePageOptions'],
+                'validationRule' => 'required|regex:/^[a-z0-9\-_\/]+$/i',
             ],
         ];
     }
