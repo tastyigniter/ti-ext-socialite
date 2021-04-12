@@ -1,7 +1,14 @@
 {
   "name": "igniter/socialite",
-  "type": "igniter-extension",
-  "keywords": ["tastyigniter", "social", "login", "facebook", "twitter", "google"],
+  "type": "tastyigniter-extension",
+  "keywords": [
+    "tastyigniter",
+    "social",
+    "login",
+    "facebook",
+    "twitter",
+    "google"
+  ],
   "require": {
     "laravel/socialite": "~4.2"
   }
