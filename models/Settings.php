@@ -2,8 +2,8 @@
 
 namespace Igniter\Socialite\Models;
 
+use Igniter\Flame\Database\Model;
 use Igniter\Socialite\Classes\ProviderManager;
-use Model;
 
 /**
  * Settings Model

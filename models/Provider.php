@@ -2,11 +2,11 @@
 
 namespace Igniter\Socialite\Models;
 
-use Auth;
-use Event;
 use Igniter\Flame\Auth\Models\User;
+use Igniter\Flame\Database\Model;
+use Illuminate\Support\Facades\Event;
 use Laravel\Socialite\AbstractUser as ProviderUser;
-use Model;
+use Main\Facades\Auth;
 
 /**
  * Provider Model

@@ -3,9 +3,9 @@
 namespace Igniter\Socialite;
 
 use Admin\Widgets\Form;
-use Event;
 use Igniter\Socialite\Classes\ProviderManager;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Event;
 use System\Classes\BaseExtension;
 
 /**

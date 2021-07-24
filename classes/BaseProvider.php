@@ -5,10 +5,10 @@ namespace Igniter\Socialite\Classes;
 use Admin\Widgets\Form;
 use Exception;
 use Igniter\Socialite\Models\Settings;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\URL;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
-use Log;
-use URL;
 
 abstract class BaseProvider
 {
