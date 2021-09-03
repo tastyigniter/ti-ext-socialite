@@ -15,14 +15,14 @@ class Socialite extends BaseComponent
             'errorPage' => [
                 'label' => 'The page to redirect to when an error occurred',
                 'type' => 'select',
-                'default' => 'account/login',
+                'default' => 'account'.DIRECTORY_SEPARATOR.'login',
                 'options' => [static::class, 'getThemePageOptions'],
                 'validationRule' => 'required|regex:/^[a-z0-9\-_\/]+$/i',
             ],
             'successPage' => [
                 'label' => 'The page to redirect to when login is successful',
                 'type' => 'select',
-                'default' => 'account/account',
+                'default' => 'account'.DIRECTORY_SEPARATOR.'account',
                 'options' => [static::class, 'getThemePageOptions'],
                 'validationRule' => 'required|regex:/^[a-z0-9\-_\/]+$/i',
             ],
