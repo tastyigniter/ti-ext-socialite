@@ -61,3 +61,45 @@ permalink: /login
 ...
 ```
 
+**Example of Registering Socialite provider**
+
+```
+public function registerSocialiteProviders()
+{
+    return [
+        \Igniter\Socialite\SocialiteProviders\Facebook::class => [
+            'code' => 'facebook',
+            'label' => 'Facebook',
+            'description' => 'Log in with Facebook',
+        ],
+    ];
+}
+```
+
+**Example of a Socialite Provider Class**
+
+A socialite provider class is responsible for building the settings form, setting the required configuration values, redirecting and handling callbacks from the provider.
+
+```
+class Facebook extends \Igniter\Socialite\Classes\BaseProvider
+{
+    protected $provider = \Laravel\Socialite\Two\FacebookProvider::class;
+
+    public function extendSettingsForm(Form $form)
+    {
+        $form->addFields([
+            ...
+        ], 'primary');
+    }
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver($this->driver)->scopes(['email'])->redirect();
+    }
+
+    public function handleProviderCallback()
+    {
+        return Socialite::driver($this->driver)->user();
+    }
+}
+```
