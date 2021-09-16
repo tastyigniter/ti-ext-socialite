@@ -61,6 +61,8 @@ permalink: /login
 ...
 ```
 
+### Extend
+
 **Example of Registering Socialite provider**
 
 ```
