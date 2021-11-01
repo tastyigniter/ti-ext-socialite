@@ -51,7 +51,7 @@ class Provider extends Model
         $provider->provider = $providerName;
         $provider->token = $providerUser->token;
 
-        if ($provider->exists AND $provider->user) {
+        if ($provider->exists && $provider->user) {
             $provider->save();
 
             return $provider->user;
