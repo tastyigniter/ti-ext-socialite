@@ -93,6 +93,7 @@ class Provider extends Model
             'password' => str_random(16),
             // Assign the new user to default group
             'customer_group_id' => setting('customer_group_id'),
+            'status' => TRUE,
         ];
 
         $user = Auth::register($data, TRUE);
