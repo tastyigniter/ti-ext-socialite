@@ -2,6 +2,7 @@
 
 namespace Igniter\Socialite\Models;
 
+use Admin\Models\Customer_groups_model;
 use Igniter\Flame\Auth\Models\User;
 use Igniter\Flame\Database\Model;
 use Illuminate\Support\Facades\Event;
@@ -92,7 +93,7 @@ class Provider extends Model
             // Generate a random password for the new user
             'password' => str_random(16),
             // Assign the new user to default group
-            'customer_group_id' => setting('customer_group_id'),
+            'customer_group_id' => optional(Customer_groups_model::getDefault())->getKey(),
             'status' => TRUE,
         ];
 
