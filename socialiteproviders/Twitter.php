@@ -55,10 +55,6 @@ class Twitter extends BaseProvider
 
     public function handleProviderCallback()
     {
-        $user = Socialite::driver($this->driver)->user();
-        if (empty($user->email))
-            $user->email = $user->nickname.'@dev.null';
-
-        return $user;
+        return Socialite::driver($this->driver)->user();
     }
 }

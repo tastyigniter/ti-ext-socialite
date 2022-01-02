@@ -71,7 +71,7 @@ abstract class BaseProvider
     /**
      * Utility function, creates a link to a registered entry point.
      *
-     * @param  string $action Ex. auth or callback
+     * @param string $action Ex. auth or callback
      *
      * @return string
      */
@@ -88,6 +88,11 @@ abstract class BaseProvider
     public function isEnabled()
     {
         return !empty($this->getSetting('status', 0));
+    }
+
+    public function shouldConfirmEmail()
+    {
+        return FALSE;
     }
 
     public function handleProviderException(Exception $ex)
@@ -126,7 +131,7 @@ abstract class BaseProvider
      *      ...
      *    ], 'primary');
      *
-     * @param  \Admin\Widgets\Form $form
+     * @param \Admin\Widgets\Form $form
      *
      * @return void
      */

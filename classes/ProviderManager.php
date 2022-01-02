@@ -2,14 +2,14 @@
 
 namespace Igniter\Socialite\Classes;
 
+use Admin\Models\Customer_groups_model;
 use Exception;
+use Igniter\Flame\Exception\ApplicationException;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Flame\Support\Str;
 use Igniter\Socialite\Models\Provider;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\AbstractUser as ProviderUser;
 use Main\Facades\Auth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use System\Classes\ExtensionManager;
@@ -176,38 +176,53 @@ class ProviderManager
      */
     public static function runEntryPoint($code, $action)
     {
-        $redirect = Session::get('igniter_socialite_redirect', ['/', '/login']);
-        [$successUrl, $errorUrl] = $redirect;
-        $successUrl = Request::get('success', $successUrl);
-        $errorUrl = Request::get('error', $errorUrl);
-
-        $manager = self::instance();
-        $providerClassName = $manager->resolveProvider($code);
-        if (!$providerClassName) {
-            flash()->error("Unknown socialite provider: $providerClassName.");
-
-            return Redirect::to($errorUrl);
-        }
-
-        $provider = $manager->makeProvider($providerClassName);
-
-        if ($action != 'callback') {
-            Session::flash('igniter_socialite_redirect', [$successUrl, $errorUrl]);
-
-            return $provider->redirectToProvider();
-        }
+        [$successUrl, $errorUrl] = session()->get('igniter_socialite_redirect', ['/', '/login']);
+        $successUrl = request()->get('success', $successUrl);
+        $errorUrl = request()->get('error', $errorUrl);
 
         try {
-            $providerUser = $provider->handleProviderCallback($provider->getDriver());
+            $manager = self::instance();
+
+            if (!$providerClassName = $manager->resolveProvider($code))
+                throw new ApplicationException("Unknown socialite provider: $providerClassName.");
+
+            $providerClass = $manager->makeProvider($providerClassName);
+
+            if ($action === 'auth') {
+                session()->put('igniter_socialite_redirect', [$successUrl, $errorUrl]);
+
+                return $providerClass->redirectToProvider();
+            }
+
+            if ($redirect = $manager->handleProviderCallback($providerClass, $errorUrl))
+                return $redirect;
+
+            // Grab the user associated with this provider. Creates or attach one if need be.
+            return $manager->completeCallback();
         }
         catch (Exception $ex) {
-            $provider->handleProviderException($ex);
+            flash()->error($ex->getMessage());
 
-            return Redirect::to($errorUrl);
+            return redirect()->to($errorUrl);
         }
+    }
 
-        // Grab the user associated with this provider. Creates or attach one if need be.
-        $user = Provider::findOrCreateUser($providerUser, $provider->getDriver());
+    public function completeCallback()
+    {
+        $sessionProvider = session()->get('igniter_socialite_provider');
+        [$successUrl, $errorUrl] = session()->get('igniter_socialite_redirect', ['/', '/login']);
+
+        if (!$sessionProvider || !isset($sessionProvider['user']))
+            return;
+
+        $providerUser = $sessionProvider['user'];
+        if (is_null($provider = Provider::find($sessionProvider['id'])))
+            return;
+
+        if (!$user = Auth::getByCredentials(['email' => $providerUser->email]))
+            $user = $this->registerProviderUser($providerUser, $provider);
+
+        $provider->user()->associate($user);
 
         // Support custom login handling
         $result = Event::fire('igniter.socialite.onLogin', [$providerUser, $user], TRUE);
@@ -216,6 +231,60 @@ class ProviderManager
 
         Auth::login($user);
 
-        return Redirect::to($successUrl);
+        Event::fire('igniter.socialite.login', [$user], TRUE);
+
+        session()->forget([
+            'igniter_socialite_redirect',
+            'igniter_socialite_provider_id',
+        ]);
+
+        return redirect()->to($successUrl);
+    }
+
+    protected function handleProviderCallback($providerClass, $errorUrl)
+    {
+        try {
+            $providerUser = $providerClass->handleProviderCallback();
+
+            $provider = Provider::firstOrNew([
+                'provider' => $providerClass->getDriver(),
+                'provider_id' => $providerUser->id,
+            ]);
+
+            $provider->token = $providerUser->token;
+            $provider->save();
+
+            session()->put('igniter_socialite_provider', [
+                'id' => $provider->getKey(),
+                'user' => $providerUser,
+            ]);
+
+            if (!strlen($providerUser->email) || $providerClass->shouldConfirmEmail())
+                return redirect()->to(page_url('/confirm-email'));
+        }
+        catch (Exception $ex) {
+            $providerClass->handleProviderException($ex);
+
+            return redirect()->to($errorUrl);
+        }
+    }
+
+    protected function registerProviderUser(ProviderUser $providerUser, Provider $provider)
+    {
+        // Support custom login handling
+        if ($user = Event::fire('igniter.socialite.register', [$providerUser, $provider], TRUE))
+            return $user;
+
+        $data = [
+            'first_name' => $providerUser->getName(),
+            'email' => $providerUser->getEmail(),
+            // Generate a random password for the new user
+            'password' => str_random(16),
+            // Assign the new user to default group
+            'customer_group_id' => optional(Customer_groups_model::getDefault())->getKey(),
+            'status' => TRUE,
+        ];
+
+        return Auth::register($data, TRUE);
     }
 }

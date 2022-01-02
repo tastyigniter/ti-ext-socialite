@@ -34,13 +34,14 @@ use.
 
 ## Usage
 
-- Add `User` and `Socialite` components to your login page
+- Add `Account` and `Socialite` components to your login page
 - Copy `/extensions/igniter/user/components/account/login.php` to your themes `_partials/account` folder
+- Copy `/extensions/igniter/socialite/themes/socialite.blade.php` to your themes `_pages` folder
 - Where you want your login links, add
 
 ```
 @foreach($socialiteLinks as $name => $link)
-    <a href="{{ $link }}"><i class="fab fa-2x fa-{{ $name }}"></i></a>
+    <a href="{{ $link."?success={$successPage}&error={$errorPage}" }}"><i class="fab fa-2x fa-{{ $name }}"></i></a>
 @endforeach
 ```
 
