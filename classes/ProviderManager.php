@@ -219,10 +219,9 @@ class ProviderManager
         if (is_null($provider = Provider::find($sessionProvider['id'])))
             return;
 
-        if (!$user = Auth::getByCredentials(['email' => $providerUser->email]))
-            $user = $this->registerProviderUser($providerUser, $provider);
+        $user = $this->createOrUpdateUser($providerUser, $provider);
 
-        $provider->user()->associate($user);
+        $provider->applyUser($user)->save();
 
         // Support custom login handling
         $result = Event::fire('igniter.socialite.onLogin', [$providerUser, $user], TRUE);
@@ -269,22 +268,30 @@ class ProviderManager
         }
     }
 
-    protected function registerProviderUser(ProviderUser $providerUser, Provider $provider)
+    protected function createOrUpdateUser(ProviderUser $providerUser, Provider $provider)
     {
-        // Support custom login handling
-        if ($user = Event::fire('igniter.socialite.register', [$providerUser, $provider], TRUE))
-            return $user;
-
         $data = [
             'first_name' => $providerUser->getName(),
+        ];
+
+        if ($user = Auth::getByCredentials(['email' => $providerUser->getEmail()])) {
+            $user->fill($data)->save();
+
+            return $user;
+        }
+
+        $data = array_merge($data, [
             'email' => $providerUser->getEmail(),
             // Generate a random password for the new user
-            'password' => str_random(16),
+            'password' => str_random(),
             // Assign the new user to default group
             'customer_group_id' => optional(Customer_groups_model::getDefault())->getKey(),
             'status' => TRUE,
-        ];
+        ]);
 
-        return Auth::register($data, TRUE);
+        if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], TRUE))
+            $user = Auth::register($data, TRUE);
+
+        return $user;
     }
 }
