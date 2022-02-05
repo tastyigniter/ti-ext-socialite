@@ -13,7 +13,7 @@
         <li>Copy your <b>App ID</b> and <b>App Secret</b> into the fields below.</li>
         <li>In your facebook app’s dashboard, on the <b>Settings</b> tab set the <b>Valid OAuth redirect URIs</b>
             to <span
-                style="color:green"><?= $formModel->getProvider('facebook')->makeEntryPointUrl('callback') ?></span>
+                style="color:green">{{ $formModel->getProvider('facebook')->makeEntryPointUrl('callback') }}</span>
         </li>
     </ol>
 </div>

@@ -11,7 +11,7 @@
         <li>
             In the side menu select the <b>Credentials</b> and click on <b>Create Credentials > OAuth Client ID</b>.
             Choose the type as <b>Web Application</b>. Set the <b>Authorized redirect URIs</b> to
-            <span style="color:green"><?= $formModel->getProvider('google')->makeEntryPointUrl('callback') ?></span>
+            <span style="color:green">{{ $formModel->getProvider('google')->makeEntryPointUrl('callback') }}</span>
             and click create. It will show you the Client ID and Client Secret which should be copied into the fields
             below.
         </li>
