@@ -6,4 +6,4 @@ Route::get('igniter/socialite/{provider}/{action}', [
     function ($provider, $action) {
         return \Igniter\Socialite\Classes\ProviderManager::runEntryPoint($provider, $action);
     },
-])->where('provider', '[a-zA-Z]+')->where('action', '[a-zA-Z]+');
+])->where('provider', '[a-zA-Z-]+')->where('action', '[a-zA-Z-]+');
