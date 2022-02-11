@@ -228,7 +228,7 @@ class ProviderManager
         if ($result instanceof RedirectResponse)
             return $result;
 
-        Auth::login($user);
+        Auth::login($user, TRUE);
 
         Event::fire('igniter.socialite.login', [$user], TRUE);
 
@@ -270,24 +270,18 @@ class ProviderManager
 
     protected function createOrUpdateUser(ProviderUser $providerUser, Provider $provider)
     {
-        $data = [
-            'first_name' => $providerUser->getName(),
-        ];
-
-        if ($user = Auth::getByCredentials(['email' => $providerUser->getEmail()])) {
-            $user->fill($data)->save();
-
+        if ($user = Auth::getByCredentials(['email' => $providerUser->getEmail()]))
             return $user;
-        }
 
-        $data = array_merge($data, [
+        $data = [
+            'first_name' => $providerUser->getName() ?? 'blank name',
             'email' => $providerUser->getEmail(),
             // Generate a random password for the new user
             'password' => str_random(),
             // Assign the new user to default group
             'customer_group_id' => optional(Customer_groups_model::getDefault())->getKey(),
             'status' => TRUE,
-        ]);
+        ];
 
         if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], TRUE))
             $user = Auth::register($data, TRUE);
