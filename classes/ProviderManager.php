@@ -246,6 +246,7 @@ class ProviderManager
             $providerUser = $providerClass->handleProviderCallback();
 
             $provider = Provider::firstOrNew([
+                'user_type' => 'customers',
                 'provider' => $providerClass->getDriver(),
                 'provider_id' => $providerUser->id,
             ]);
