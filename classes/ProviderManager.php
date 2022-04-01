@@ -38,6 +38,8 @@ class ProviderManager
      */
     protected $extensionManager;
 
+    protected $resolveUserTypeCallbacks = [];
+
     protected function initialize()
     {
         $this->extensionManager = ExtensionManager::instance();
@@ -166,6 +168,11 @@ class ProviderManager
         return new $className($code);
     }
 
+    public function resolveUserType(callable $callback)
+    {
+        $this->resolveUserTypeCallbacks[] = $callback;
+    }
+
     /**
      * Executes an entry point for registered social providers, defined in routes.php file.
      *
@@ -191,6 +198,8 @@ class ProviderManager
             if ($action === 'auth') {
                 session()->put('igniter_socialite_redirect', [$successUrl, $errorUrl]);
 
+                event('igniter.socialite.beforeRedirect', [$providerClass]);
+
                 return $providerClass->redirectToProvider();
             }
 
@@ -198,7 +207,14 @@ class ProviderManager
                 return $redirect;
 
             // Grab the user associated with this provider. Creates or attach one if need be.
-            return $manager->completeCallback();
+            $redirectUrl = $manager->completeCallback();
+
+            session()->forget([
+                'igniter_socialite_redirect',
+                'igniter_socialite_provider',
+            ]);
+
+            return $redirectUrl ?: redirect()->to($successUrl);
         }
         catch (Exception $ex) {
             flash()->error($ex->getMessage());
@@ -210,13 +226,15 @@ class ProviderManager
     public function completeCallback()
     {
         $sessionProvider = session()->get('igniter_socialite_provider');
-        [$successUrl, $errorUrl] = session()->get('igniter_socialite_redirect', ['/', '/login']);
 
         if (!$sessionProvider || !isset($sessionProvider['user']))
             return;
 
         $providerUser = $sessionProvider['user'];
         if (is_null($provider = Provider::find($sessionProvider['id'])))
+            return;
+
+        if (event('igniter.socialite.completeCallback', [$providerUser, $provider], TRUE) === TRUE)
             return;
 
         $user = $this->createOrUpdateUser($providerUser, $provider);
@@ -231,13 +249,6 @@ class ProviderManager
         Auth::login($user, TRUE);
 
         Event::fire('igniter.socialite.login', [$user], TRUE);
-
-        session()->forget([
-            'igniter_socialite_redirect',
-            'igniter_socialite_provider_id',
-        ]);
-
-        return redirect()->to($successUrl);
     }
 
     protected function handleProviderCallback($providerClass, $errorUrl)
@@ -246,7 +257,7 @@ class ProviderManager
             $providerUser = $providerClass->handleProviderCallback();
 
             $provider = Provider::firstOrNew([
-                'user_type' => 'customers',
+                'user_type' => $this->resolveUserTypeCallback(),
                 'provider' => $providerClass->getDriver(),
                 'provider_id' => $providerUser->id,
             ]);
@@ -259,7 +270,7 @@ class ProviderManager
                 'user' => $providerUser,
             ]);
 
-            if (!strlen($providerUser->email) || $providerClass->shouldConfirmEmail())
+            if ($providerClass->shouldConfirmEmail())
                 return redirect()->to(page_url('/confirm-email'));
         }
         catch (Exception $ex) {
@@ -288,5 +299,15 @@ class ProviderManager
             $user = Auth::register($data, TRUE);
 
         return $user;
+    }
+
+    protected function resolveUserTypeCallback()
+    {
+        foreach ($this->resolveUserTypeCallbacks as $callback) {
+            if ($userType = $callback($this))
+                return $userType;
+        }
+
+        return 'customers';
     }
 }

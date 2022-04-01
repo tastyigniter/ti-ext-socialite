@@ -48,4 +48,9 @@ class Facebook extends BaseProvider
     {
         return Socialite::driver($this->driver)->user();
     }
+
+    public function shouldConfirmEmail($providerUser)
+    {
+        return !strlen($providerUser->email);
+    }
 }

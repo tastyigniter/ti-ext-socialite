@@ -18,6 +18,8 @@ abstract class BaseProvider
 
     protected $settings;
 
+    protected static $configCallbacks = [];
+
     public function __construct($driver = null)
     {
         $this->driver = $driver;
@@ -48,9 +50,11 @@ abstract class BaseProvider
      */
     protected function buildProvider($config, $app)
     {
-        return Socialite::buildProvider(
-            $this->provider, $config
-        );
+        foreach (self::$configCallbacks as $callback) {
+            $config = $callback($config, $this);
+        }
+
+        return Socialite::buildProvider($this->provider, $config);
     }
 
     public function getDriver()
@@ -90,7 +94,7 @@ abstract class BaseProvider
         return !empty($this->getSetting('status', 0));
     }
 
-    public function shouldConfirmEmail()
+    public function shouldConfirmEmail($providerUser)
     {
         return FALSE;
     }
@@ -150,4 +154,9 @@ abstract class BaseProvider
      * @return \Laravel\Socialite\AbstractUser
      */
     abstract public function handleProviderCallback();
+
+    public static function extendConfig(callable $callback)
+    {
+        self::$configCallbacks[] = $callback;
+    }
 }
