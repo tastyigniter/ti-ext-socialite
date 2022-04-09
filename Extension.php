@@ -31,7 +31,7 @@ class Extension extends BaseExtension
                 'label' => 'Configure Social Login Providers',
                 'description' => 'Configure social login providers with API credentials.',
                 'icon' => 'fa fa-users',
-                'model' => 'Igniter\Socialite\Models\Settings',
+                'model' => \Igniter\Socialite\Models\Settings::class,
                 'priority' => 700,
             ],
         ];
@@ -61,7 +61,7 @@ class Extension extends BaseExtension
     public function registerComponents()
     {
         return [
-            'Igniter\Socialite\Components\Socialite' => [
+            \Igniter\Socialite\Components\Socialite::class => [
                 'code' => 'socialite',
                 'name' => 'Socialite component',
                 'description' => 'Displays the social networks login buttons',
