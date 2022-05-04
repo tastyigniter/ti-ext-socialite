@@ -234,7 +234,7 @@ class ProviderManager
         if (is_null($provider = Provider::find($sessionProvider['id'])))
             return;
 
-        if (event('igniter.socialite.completeCallback', [$providerUser, $provider], TRUE) === TRUE)
+        if (event('igniter.socialite.completeCallback', [$providerUser, $provider], true) === true)
             return;
 
         $user = $this->createOrUpdateUser($providerUser, $provider);
@@ -242,13 +242,13 @@ class ProviderManager
         $provider->applyUser($user)->save();
 
         // Support custom login handling
-        $result = Event::fire('igniter.socialite.onLogin', [$providerUser, $user], TRUE);
+        $result = Event::fire('igniter.socialite.onLogin', [$providerUser, $user], true);
         if ($result instanceof RedirectResponse)
             return $result;
 
-        Auth::login($user, TRUE);
+        Auth::login($user, true);
 
-        Event::fire('igniter.socialite.login', [$user], TRUE);
+        Event::fire('igniter.socialite.login', [$user], true);
     }
 
     protected function handleProviderCallback($providerClass, $errorUrl)
@@ -292,11 +292,11 @@ class ProviderManager
             'password' => str_random(),
             // Assign the new user to default group
             'customer_group_id' => optional(Customer_groups_model::getDefault())->getKey(),
-            'status' => TRUE,
+            'status' => true,
         ];
 
-        if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], TRUE))
-            $user = Auth::register($data, TRUE);
+        if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], true))
+            $user = Auth::register($data, true);
 
         return $user;
     }

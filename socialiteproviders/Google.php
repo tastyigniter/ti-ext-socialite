@@ -22,7 +22,7 @@ class Google extends BaseProvider
             'providers[google][status]' => [
                 'label' => 'Status',
                 'type' => 'switch',
-                'default' => TRUE,
+                'default' => true,
                 'span' => 'left',
                 'tab' => 'Google',
             ],

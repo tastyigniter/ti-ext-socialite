@@ -81,7 +81,7 @@ abstract class BaseProvider
      */
     public function makeEntryPointUrl($action)
     {
-        return URL::route('igniter_socialite_provider', [$this->driver, $action], TRUE);
+        return URL::route('igniter_socialite_provider', [$this->driver, $action], true);
     }
 
     /**
@@ -96,7 +96,7 @@ abstract class BaseProvider
 
     public function shouldConfirmEmail($providerUser)
     {
-        return FALSE;
+        return false;
     }
 
     public function handleProviderException(Exception $ex)

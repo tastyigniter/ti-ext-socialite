@@ -22,7 +22,7 @@ class Facebook extends BaseProvider
             'providers[facebook][status]' => [
                 'label' => 'Status',
                 'type' => 'switch',
-                'default' => TRUE,
+                'default' => true,
                 'span' => 'left',
                 'tab' => 'Facebook',
             ],
