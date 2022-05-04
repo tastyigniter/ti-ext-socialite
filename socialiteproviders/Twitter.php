@@ -30,7 +30,7 @@ class Twitter extends BaseProvider
             'providers[twitter][status]' => [
                 'label' => 'Status',
                 'type' => 'switch',
-                'default' => TRUE,
+                'default' => true,
                 'span' => 'left',
                 'tab' => 'Twitter',
             ],

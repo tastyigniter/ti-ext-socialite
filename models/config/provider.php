@@ -18,7 +18,7 @@ return [
                 'id' => [
                     'label' => 'ID',
                     'type' => 'number',
-                    'invisible' => TRUE,
+                    'invisible' => true,
                 ],
             ],
         ],
