@@ -2,11 +2,11 @@
 
 namespace Igniter\Socialite;
 
-use Admin\Widgets\Form;
+use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\ProviderManager;
+use Igniter\System\Classes\BaseExtension;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Event;
-use System\Classes\BaseExtension;
 
 /**
  * Socialite Extension Information File
@@ -72,7 +72,7 @@ class Extension extends BaseExtension
     protected function extendSettingsFormField()
     {
         Event::listen('admin.form.extendFields', function (Form $form) {
-            if (!$form->getController() instanceof \System\Controllers\Extensions) return;
+            if (!$form->getController() instanceof \Igniter\System\Controllers\Extensions) return;
             if (!$form->model instanceof \Igniter\Socialite\Models\Settings) return;
 
             $manager = ProviderManager::instance();

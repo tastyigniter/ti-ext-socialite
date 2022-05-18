@@ -2,8 +2,8 @@
 
 namespace Igniter\Socialite\Classes;
 
-use Admin\Widgets\Form;
 use Exception;
+use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Models\Settings;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
@@ -135,7 +135,7 @@ abstract class BaseProvider
      *      ...
      *    ], 'primary');
      *
-     * @param \Admin\Widgets\Form $form
+     * @param \Igniter\Admin\Widgets\Form $form
      *
      * @return void
      */

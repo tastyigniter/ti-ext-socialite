@@ -2,7 +2,7 @@
 
 namespace Igniter\Socialite\SocialiteProviders;
 
-use Admin\Widgets\Form;
+use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\One\TwitterProvider;
 use League\OAuth1\Client\Server\Twitter as TwitterServer;
@@ -24,7 +24,7 @@ class Twitter extends BaseProvider
         $form->addFields([
             'setup' => [
                 'type' => 'partial',
-                'path' => '$/igniter/socialite/socialiteproviders/twitter/info',
+                'path' => 'igniter.socialite::twitter.info',
                 'tab' => 'Twitter',
             ],
             'providers[twitter][status]' => [

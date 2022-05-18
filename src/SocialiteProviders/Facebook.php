@@ -2,7 +2,7 @@
 
 namespace Igniter\Socialite\SocialiteProviders;
 
-use Admin\Widgets\Form;
+use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\Two\FacebookProvider;
 use Socialite;
@@ -16,7 +16,7 @@ class Facebook extends BaseProvider
         $form->addFields([
             'setup' => [
                 'type' => 'partial',
-                'path' => '$/igniter/socialite/socialiteproviders/facebook/info',
+                'path' => 'igniter.socialite::facebook.info',
                 'tab' => 'Facebook',
             ],
             'providers[facebook][status]' => [

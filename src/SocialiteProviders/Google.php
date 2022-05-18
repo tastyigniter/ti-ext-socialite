@@ -2,7 +2,7 @@
 
 namespace Igniter\Socialite\SocialiteProviders;
 
-use Admin\Widgets\Form;
+use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\Two\GoogleProvider;
 use Socialite;
@@ -16,7 +16,7 @@ class Google extends BaseProvider
         $form->addFields([
             'setup' => [
                 'type' => 'partial',
-                'path' => '$/igniter/socialite/socialiteproviders/google/info',
+                'path' => 'igniter.socialite::google.info',
                 'tab' => 'Google',
             ],
             'providers[google][status]' => [

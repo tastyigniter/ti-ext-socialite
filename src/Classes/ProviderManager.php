@@ -2,17 +2,17 @@
 
 namespace Igniter\Socialite\Classes;
 
-use Admin\Models\Customer_groups_model;
 use Exception;
+use Igniter\Admin\Models\CustomerGroup;
 use Igniter\Flame\Exception\ApplicationException;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Flame\Support\Str;
+use Igniter\Main\Facades\Auth;
 use Igniter\Socialite\Models\Provider;
+use Igniter\System\Classes\ExtensionManager;
 use Illuminate\Support\Facades\Event;
 use Laravel\Socialite\AbstractUser as ProviderUser;
-use Main\Facades\Auth;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use System\Classes\ExtensionManager;
 
 class ProviderManager
 {
@@ -34,7 +34,7 @@ class ProviderManager
     protected $providerHints;
 
     /**
-     * @var \System\Classes\ExtensionManager
+     * @var \Igniter\System\Classes\ExtensionManager
      */
     protected $extensionManager;
 
@@ -291,7 +291,7 @@ class ProviderManager
             // Generate a random password for the new user
             'password' => str_random(),
             // Assign the new user to default group
-            'customer_group_id' => optional(Customer_groups_model::getDefault())->getKey(),
+            'customer_group_id' => optional(CustomerGroup::getDefault())->getKey(),
             'status' => true,
         ];
 

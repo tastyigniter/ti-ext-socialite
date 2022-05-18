@@ -2,14 +2,14 @@
 
 namespace Igniter\Socialite\Components;
 
-use Admin\Traits\ValidatesForm;
+use Igniter\Admin\Traits\ValidatesForm;
 use Igniter\Socialite\Classes\ProviderManager;
-use System\Classes\BaseComponent;
+use Igniter\System\Classes\BaseComponent;
 
 class Socialite extends BaseComponent
 {
     use ValidatesForm;
-    use \Main\Traits\UsesPage;
+    use \Igniter\Main\Traits\UsesPage;
 
     public function defineProperties()
     {

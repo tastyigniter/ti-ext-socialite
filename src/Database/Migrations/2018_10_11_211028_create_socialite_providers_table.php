@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSocialiteProvidersTable extends Migration
-{
+return new class extends Migration {
     public function up()
     {
         Schema::create('igniter_socialite_providers', function (Blueprint $table) {
@@ -25,4 +24,4 @@ class CreateSocialiteProvidersTable extends Migration
     {
         Schema::dropIfExists('igniter_socialite_providers');
     }
-}
+};
