@@ -15,7 +15,7 @@ security: guest
         <div class="col-sm-6 mx-auto my-5">
             <div class="card">
                 <div class="card-body">
-                    @partial('socialite::confirm_email')
+                    @themePartial('socialite::confirm_email')
                 </div>
             </div>
         </div>

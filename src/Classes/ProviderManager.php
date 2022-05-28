@@ -3,11 +3,11 @@
 namespace Igniter\Socialite\Classes;
 
 use Exception;
-use Igniter\Admin\Models\CustomerGroup;
 use Igniter\Flame\Exception\ApplicationException;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Flame\Support\Str;
 use Igniter\Main\Facades\Auth;
+use Igniter\Main\Models\CustomerGroup;
 use Igniter\Socialite\Models\Provider;
 use Igniter\System\Classes\ExtensionManager;
 use Illuminate\Support\Facades\Event;
@@ -42,7 +42,7 @@ class ProviderManager
 
     protected function initialize()
     {
-        $this->extensionManager = ExtensionManager::instance();
+        $this->extensionManager = resolve(ExtensionManager::class);
     }
 
     /**
@@ -97,7 +97,7 @@ class ProviderManager
             $callback($this);
         }
 
-        $registeredProviders = ExtensionManager::instance()->getRegistrationMethodValues('registerSocialiteProviders');
+        $registeredProviders = resolve(ExtensionManager::class)->getRegistrationMethodValues('registerSocialiteProviders');
         foreach ($registeredProviders as $extensionCode => $socialProviders) {
             $this->registerProviders($socialProviders);
         }
