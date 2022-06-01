@@ -270,7 +270,7 @@ class ProviderManager
                 'user' => $providerUser,
             ]);
 
-            if ($providerClass->shouldConfirmEmail())
+            if ($providerClass->shouldConfirmEmail($providerUser))
                 return redirect()->to(page_url('/confirm-email'));
         }
         catch (Exception $ex) {
