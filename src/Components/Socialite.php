@@ -59,13 +59,13 @@ class Socialite extends BaseComponent
 
         session()->put('igniter_socialite_provider', $sessionData);
 
-        return ProviderManager::instance()->completeCallback();
+        return resolve(ProviderManager::class)->completeCallback();
     }
 
     protected function loadLinks()
     {
         $result = [];
-        $manager = ProviderManager::instance();
+        $manager = resolve(ProviderManager::class);
         $providers = $manager->listProviders();
         foreach ($providers as $className => $info) {
             $provider = $manager->makeProvider($className, $info);

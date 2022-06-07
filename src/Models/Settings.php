@@ -20,7 +20,7 @@ class Settings extends Model
 
     public function getProvider($provider)
     {
-        $manager = ProviderManager::instance();
+        $manager = resolve(ProviderManager::class);
         $className = $manager->resolveProvider($provider);
 
         return $manager->makeProvider($className);

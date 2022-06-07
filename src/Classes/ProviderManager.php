@@ -16,8 +16,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProviderManager
 {
-    use \Igniter\Flame\Traits\Singleton;
-
     /**
      * @var array An array of provider types.
      */
@@ -40,9 +38,9 @@ class ProviderManager
 
     protected $resolveUserTypeCallbacks = [];
 
-    protected function initialize()
+    protected function __construct(ExtensionManager $extensionManager)
     {
-        $this->extensionManager = resolve(ExtensionManager::class);
+        $this->extensionManager = $extensionManager;
     }
 
     /**
@@ -181,19 +179,17 @@ class ProviderManager
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public static function runEntryPoint($code, $action)
+    public function runEntryPoint($code, $action)
     {
         [$successUrl, $errorUrl] = session()->get('igniter_socialite_redirect', ['/', '/login']);
         $successUrl = request()->get('success', $successUrl);
         $errorUrl = request()->get('error', $errorUrl);
 
         try {
-            $manager = self::instance();
-
-            if (!$providerClassName = $manager->resolveProvider($code))
+            if (!$providerClassName = $this->resolveProvider($code))
                 throw new ApplicationException("Unknown socialite provider: $providerClassName.");
 
-            $providerClass = $manager->makeProvider($providerClassName);
+            $providerClass = $this->makeProvider($providerClassName);
 
             if ($action === 'auth') {
                 session()->put('igniter_socialite_redirect', [$successUrl, $errorUrl]);
@@ -203,11 +199,11 @@ class ProviderManager
                 return $providerClass->redirectToProvider();
             }
 
-            if ($redirect = $manager->handleProviderCallback($providerClass, $errorUrl))
+            if ($redirect = $this->handleProviderCallback($providerClass, $errorUrl))
                 return $redirect;
 
             // Grab the user associated with this provider. Creates or attach one if need be.
-            $redirectUrl = $manager->completeCallback();
+            $redirectUrl = $this->completeCallback();
 
             session()->forget([
                 'igniter_socialite_redirect',

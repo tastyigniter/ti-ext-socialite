@@ -15,6 +15,8 @@ class Extension extends BaseExtension
 {
     public function register()
     {
+        $this->app->singleton(ProviderManager::class);
+
         $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
         AliasLoader::getInstance()->alias('Socialite', \Laravel\Socialite\Facades\Socialite::class);
     }
@@ -75,7 +77,7 @@ class Extension extends BaseExtension
             if (!$form->getController() instanceof \Igniter\System\Http\Controllers\Extensions) return;
             if (!$form->model instanceof \Igniter\Socialite\Models\Settings) return;
 
-            $manager = ProviderManager::instance();
+            $manager = resolve(ProviderManager::class);
             foreach ($manager->listProviders() as $class => $details) {
                 $provider = $manager->makeProvider($class, $details);
                 $provider->extendSettingsForm($form);
