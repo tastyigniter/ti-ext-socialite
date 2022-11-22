@@ -5,12 +5,12 @@ namespace Igniter\Socialite\Classes;
 use Exception;
 use Igniter\Flame\Exception\ApplicationException;
 use Igniter\Flame\Exception\SystemException;
-use Igniter\Flame\Support\Str;
 use Igniter\Main\Facades\Auth;
 use Igniter\Main\Models\CustomerGroup;
 use Igniter\Socialite\Models\Provider;
 use Igniter\System\Classes\ExtensionManager;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Str;
 use Laravel\Socialite\AbstractUser as ProviderUser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
