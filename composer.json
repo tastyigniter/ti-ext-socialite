@@ -1,6 +1,6 @@
 {
   "name": "tastyigniter/ti-ext-socialite",
-  "type": "tastyigniter-extension",
+  "type": "tastyigniter-package",
   "description": "Allows visitors to register/sign in with their social media accounts.",
   "keywords": [
     "tastyigniter",
