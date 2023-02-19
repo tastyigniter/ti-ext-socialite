@@ -18,7 +18,6 @@
     }
   ],
   "require": {
-    "tastyigniter/flame": "v4.x-dev",
     "laravel/socialite": "~5.2"
   },
   "autoload": {
