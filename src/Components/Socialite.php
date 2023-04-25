@@ -48,8 +48,9 @@ class Socialite extends BaseComponent
 
     public function onConfirmEmail()
     {
-        if (!$sessionData = session()->get('igniter_socialite_provider'))
+        if (!$sessionData = session()->get('igniter_socialite_provider')) {
             return;
+        }
 
         $validated = $this->validate(post(), [
             ['email', 'lang:igniter.user::default.reset.label_email', 'required|email:filter|max:96|unique:customers,email'],

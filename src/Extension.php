@@ -74,8 +74,12 @@ class Extension extends BaseExtension
     protected function extendSettingsFormField()
     {
         Event::listen('admin.form.extendFields', function (Form $form) {
-            if (!$form->getController() instanceof \Igniter\System\Http\Controllers\Extensions) return;
-            if (!$form->model instanceof \Igniter\Socialite\Models\Settings) return;
+            if (!$form->getController() instanceof \Igniter\System\Http\Controllers\Extensions) {
+                return;
+            }
+            if (!$form->model instanceof \Igniter\Socialite\Models\Settings) {
+                return;
+            }
 
             $manager = resolve(ProviderManager::class);
             foreach ($manager->listProviders() as $class => $details) {

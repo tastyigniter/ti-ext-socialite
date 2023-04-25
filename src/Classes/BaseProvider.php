@@ -44,8 +44,6 @@ abstract class BaseProvider
 
     /**
      * Creates an instance of the social provider using the config values
-     * @param $config
-     * @param $app
      * @return mixed
      */
     protected function buildProvider($config, $app)
@@ -66,8 +64,9 @@ abstract class BaseProvider
     {
         $config = array_get($this->settings->get('providers', []), $this->driver, []);
 
-        if (is_null($key))
+        if (is_null($key)) {
             return $config;
+        }
 
         return array_get($config, $key, $default);
     }
@@ -103,8 +102,7 @@ abstract class BaseProvider
     {
         if ($ex instanceof InvalidStateException) {
             flash()->error('Invalid State');
-        }
-        else {
+        } else {
             Log::error($ex);
             flash()->error('Could not read user information from social provider: '.$ex->getMessage());
         }
@@ -134,8 +132,6 @@ abstract class BaseProvider
      *      ],
      *      ...
      *    ], 'primary');
-     *
-     * @param \Igniter\Admin\Widgets\Form $form
      *
      * @return void
      */

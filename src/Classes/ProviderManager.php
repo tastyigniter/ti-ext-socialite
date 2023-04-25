@@ -46,30 +46,31 @@ class ProviderManager
     /**
      * Returns a single provider information
      *
-     * @param $name
      * @return array|null
      */
     public function findProvider($name)
     {
         $name = $this->resolveProvider($name) ?? $name;
-        if (!isset($this->providers[$name]))
+        if (!isset($this->providers[$name])) {
             return null;
+        }
 
         return $this->providers[$name];
     }
 
     /**
      * Returns a class name from a social provide code
-     * @param $name
      * @return string The class name resolved, or null.
      */
     public function resolveProvider($name)
     {
-        if ($this->providers === null)
+        if ($this->providers === null) {
             $this->listProviders();
+        }
 
-        if (isset($this->providerHints[$name]))
+        if (isset($this->providerHints[$name])) {
             return $this->providerHints[$name];
+        }
 
         return null;
     }
@@ -80,8 +81,9 @@ class ProviderManager
      */
     public function listProviders()
     {
-        if ($this->providers === null)
+        if ($this->providers === null) {
             $this->loadProviders();
+        }
 
         return $this->providers;
     }
@@ -103,7 +105,6 @@ class ProviderManager
 
     /**
      * Registers the social providers
-     * @param $providers
      */
     public function registerProviders($providers)
     {
@@ -114,14 +115,14 @@ class ProviderManager
 
     /**
      * Registers a single social provider.
-     * @param $className
      * @param null $providerInfo
      */
     public function registerProvider($className, $providerInfo = null)
     {
         $providerCode = $providerInfo['code'] ?? null;
-        if (!$providerCode)
+        if (!$providerCode) {
             $providerCode = Str::getClassId($className);
+        }
 
         $this->providers[$className] = $providerInfo;
         $this->providerHints[$providerCode] = $className;
@@ -137,7 +138,6 @@ class ProviderManager
      *       ]);
      *   });
      * </pre>
-     * @param callable $definitions
      */
     public function registerCallback(callable $definitions)
     {
@@ -147,15 +147,15 @@ class ProviderManager
     /**
      * Makes a social provider object with the supplied configuration
      *
-     * @param $className
      * @param array|null $providerInfo
      * @return \Igniter\Socialite\Classes\BaseProvider
      * @throws \Igniter\Flame\Exception\SystemException
      */
     public function makeProvider($className, $providerInfo = null)
     {
-        if (is_null($providerInfo))
+        if (is_null($providerInfo)) {
             $providerInfo = $this->findProvider($className);
+        }
 
         if (!class_exists($className)) {
             throw new SystemException(sprintf("The socialite provider class name '%s' has not been registered", $className));
@@ -186,8 +186,9 @@ class ProviderManager
         $errorUrl = request()->get('error', $errorUrl);
 
         try {
-            if (!$providerClassName = $this->resolveProvider($code))
+            if (!$providerClassName = $this->resolveProvider($code)) {
                 throw new ApplicationException("Unknown socialite provider: $providerClassName.");
+            }
 
             $providerClass = $this->makeProvider($providerClassName);
 
@@ -199,8 +200,9 @@ class ProviderManager
                 return $providerClass->redirectToProvider();
             }
 
-            if ($redirect = $this->handleProviderCallback($providerClass, $errorUrl))
+            if ($redirect = $this->handleProviderCallback($providerClass, $errorUrl)) {
                 return $redirect;
+            }
 
             // Grab the user associated with this provider. Creates or attach one if need be.
             $redirectUrl = $this->completeCallback();
@@ -211,8 +213,7 @@ class ProviderManager
             ]);
 
             return $redirectUrl ?: redirect()->to($successUrl);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             flash()->error($ex->getMessage());
 
             return redirect()->to($errorUrl);
@@ -223,15 +224,18 @@ class ProviderManager
     {
         $sessionProvider = session()->get('igniter_socialite_provider');
 
-        if (!$sessionProvider || !isset($sessionProvider['user']))
+        if (!$sessionProvider || !isset($sessionProvider['user'])) {
             return;
+        }
 
         $providerUser = $sessionProvider['user'];
-        if (is_null($provider = Provider::find($sessionProvider['id'])))
+        if (is_null($provider = Provider::find($sessionProvider['id']))) {
             return;
+        }
 
-        if (event('igniter.socialite.completeCallback', [$providerUser, $provider], true) === true)
+        if (event('igniter.socialite.completeCallback', [$providerUser, $provider], true) === true) {
             return;
+        }
 
         $user = $this->createOrUpdateUser($providerUser, $provider);
 
@@ -239,8 +243,9 @@ class ProviderManager
 
         // Support custom login handling
         $result = Event::fire('igniter.socialite.onLogin', [$providerUser, $user], true);
-        if ($result instanceof RedirectResponse)
+        if ($result instanceof RedirectResponse) {
             return $result;
+        }
 
         Auth::login($user, true);
 
@@ -266,10 +271,10 @@ class ProviderManager
                 'user' => $providerUser,
             ]);
 
-            if ($providerClass->shouldConfirmEmail($providerUser))
+            if ($providerClass->shouldConfirmEmail($providerUser)) {
                 return redirect()->to(page_url('/confirm-email'));
-        }
-        catch (Exception $ex) {
+            }
+        } catch (Exception $ex) {
             $providerClass->handleProviderException($ex);
 
             return redirect()->to($errorUrl);
@@ -278,8 +283,9 @@ class ProviderManager
 
     protected function createOrUpdateUser(ProviderUser $providerUser, Provider $provider)
     {
-        if ($user = Auth::getByCredentials(['email' => $providerUser->getEmail()]))
+        if ($user = Auth::getByCredentials(['email' => $providerUser->getEmail()])) {
             return $user;
+        }
 
         $data = [
             'first_name' => $providerUser->getName() ?? 'blank name',
@@ -291,8 +297,9 @@ class ProviderManager
             'status' => true,
         ];
 
-        if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], true))
+        if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], true)) {
             $user = Auth::register($data, true);
+        }
 
         return $user;
     }
@@ -300,8 +307,9 @@ class ProviderManager
     protected function resolveUserTypeCallback()
     {
         foreach ($this->resolveUserTypeCallbacks as $callback) {
-            if ($userType = $callback($this))
+            if ($userType = $callback($this)) {
                 return $userType;
+            }
         }
 
         return 'customers';
