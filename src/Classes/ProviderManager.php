@@ -203,8 +203,7 @@ class ProviderManager
             ]);
 
             return $redirectUrl ?: redirect()->to($successUrl);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             flash()->error($ex->getMessage());
 
             return redirect()->to($errorUrl);
@@ -265,8 +264,7 @@ class ProviderManager
             if ($providerClass->shouldConfirmEmail($providerUser)) {
                 return redirect()->to(page_url('/confirm-email'));
             }
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $providerClass->handleProviderException($ex);
 
             return redirect()->to($errorUrl);
