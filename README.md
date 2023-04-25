@@ -25,4 +25,5 @@ security vulnerabilities.
 
 ### License
 
-TastyIgniter Socialite extension is open-sourced software licensed under the [MIT license](LICENSE).
+TastyIgniter Socialite extension is open-sourced software licensed under
+the [MIT license](https://github.com/tastyigniter/ti-ext-socialite/LICENSE.md).
