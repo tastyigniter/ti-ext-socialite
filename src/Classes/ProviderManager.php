@@ -232,14 +232,14 @@ class ProviderManager
         $provider->applyUser($user)->save();
 
         // Support custom login handling
-        $result = Event::fire('igniter.socialite.onLogin', [$providerUser, $user], true);
+        $result = Event::dispatch('igniter.socialite.onLogin', [$providerUser, $user], true);
         if ($result instanceof RedirectResponse) {
             return $result;
         }
 
         Auth::login($user, true);
 
-        Event::fire('igniter.socialite.login', [$user], true);
+        Event::dispatch('igniter.socialite.login', [$user], true);
     }
 
     protected function handleProviderCallback($providerClass, $errorUrl)
@@ -287,7 +287,7 @@ class ProviderManager
             'status' => true,
         ];
 
-        if (!$user = Event::fire('igniter.socialite.register', [$providerUser, $provider], true)) {
+        if (!$user = Event::dispatch('igniter.socialite.register', [$providerUser, $provider], true)) {
             $user = Auth::register($data, true);
         }
 

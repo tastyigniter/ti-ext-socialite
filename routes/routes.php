@@ -1,9 +1,10 @@
 <?php
 
-Route::any('igniter/socialite/{provider}/{action}', [
-    'as' => 'igniter_socialite_provider',
+Route::group([
+    'prefix' => 'igniter/socialite',
     'middleware' => ['web'],
-    function ($provider, $action) {
-        return resolve(\Igniter\Socialite\Classes\ProviderManager::class)->runEntryPoint($provider, $action);
-    },
-])->where('provider', '[a-zA-Z-]+')->where('action', '[a-zA-Z]+');
+], function () {
+    Route::any('{provider}/{action}', function ($provider, $action) {
+        return \Igniter\Socialite\Classes\ProviderManager::runEntryPoint($provider, $action);
+    })->name('igniter_socialite_provider')->where('provider', '[a-zA-Z-]+')->where('action', '[a-zA-Z]+');
+});
