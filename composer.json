@@ -1,62 +1,69 @@
 {
-    "name": "tastyigniter/ti-ext-socialite",
-    "type": "tastyigniter-package",
-    "description": "Allows visitors to register/sign in with their social media accounts.",
-    "keywords": [
-        "tastyigniter",
-        "social",
-        "login",
-        "facebook",
-        "twitter",
-        "google"
-    ],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Sam Poyigi",
-            "email": "sam@sampoyigi.com"
-        }
-    ],
-    "require": {
-        "laravel/socialite": "~5.2"
-    },
-    "autoload": {
-        "psr-4": {
-            "Igniter\\Socialite\\": "src/"
-        }
-    },
-    "extra": {
-        "tastyigniter-extension": {
-            "code": "igniter.socialite",
-            "name": "Socialite",
-            "icon": {
-                "class": "fa fa-users",
-                "color": "#1F4E62",
-                "backgroundColor": "#4FC3F7"
-            },
-            "homepage": "https://tastyigniter.com/marketplace/item/igniter-socialite",
-            "require": {
-                "igniter.user": "*"
-            }
-        }
-    },
-    "require-dev": {
-        "laravel/pint": "^1.2",
-        "nunomaduro/larastan": "^2.4.0",
-        "pestphp/pest-plugin-laravel": "^2.0",
-        "pestphp/pest": "^2.5",
-        "orchestra/testbench": "^8.5"
-    },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true
-        },
-        "sort-packages": true
-    },
-    "scripts": {
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/pint",
-        "static": "vendor/bin/phpstan analyse --ansi --memory-limit 1056M"
-    }
+	"name": "tastyigniter/ti-ext-socialite",
+	"type": "tastyigniter-package",
+	"description": "Allows visitors to register/sign in with their social media accounts.",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Sam Poyigi",
+			"email": "sam@sampoyigi.com"
+		}
+	],
+	"keywords": [
+		"tastyigniter",
+		"social",
+		"login",
+		"facebook",
+		"twitter",
+		"google"
+	],
+	"require-dev": {
+		"laravel/pint": "^1.2",
+		"nunomaduro/larastan": "^2.4.0",
+		"orchestra/testbench": "^8.5",
+		"pestphp/pest-plugin-laravel": "^2.0",
+		"tastyigniter/core": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Igniter\\Socialite\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Igniter\\Socialite\\Tests\\": "tests/"
+		}
+	},
+	"extra": {
+		"tastyigniter-extension": {
+			"code": "igniter.socialite",
+			"name": "Socialite",
+			"icon": {
+				"class": "fa fa-users",
+				"color": "#1F4E62",
+				"backgroundColor": "#4FC3F7"
+			},
+			"homepage": "https://tastyigniter.com/marketplace/item/igniter-socialite",
+			"require": {
+				"igniter.user": "*"
+			}
+		}
+	},
+	"scripts": {
+		"test": "vendor/bin/pest",
+		"test-coverage": "vendor/bin/pest --coverage",
+		"format": "vendor/bin/pint",
+		"static": "vendor/bin/phpstan analyse --ansi --memory-limit 1056M"
+	},
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true,
+			"php-http/discovery": true,
+			"composer/installers": true
+		},
+		"sort-packages": true
+	},
+	"require": {
+		"laravel/socialite": "~5.2"
+	}
 }

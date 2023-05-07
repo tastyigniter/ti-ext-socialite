@@ -16,19 +16,19 @@ parameters:
 			path: src/Classes/BaseProvider.php
 
 		-
-			message: "#^Function array_get not found\\.$#"
-			count: 2
-			path: src/Classes/BaseProvider.php
+			message: "#^Call to an undefined static method Igniter\\\\Main\\\\Facades\\\\Auth\\:\\:getByCredentials\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Function flash not found\\.$#"
-			count: 2
-			path: src/Classes/BaseProvider.php
+			message: "#^Call to an undefined static method Igniter\\\\Main\\\\Facades\\\\Auth\\:\\:login\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Parameter \\$form of method Igniter\\\\Socialite\\\\Classes\\\\BaseProvider\\:\\:extendSettingsForm\\(\\) has invalid type Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 2
-			path: src/Classes/BaseProvider.php
+			message: "#^Call to an undefined static method Igniter\\\\Main\\\\Facades\\\\Auth\\:\\:register\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
 
 		-
 			message: "#^Call to an undefined static method Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:find\\(\\)\\.$#"
@@ -51,126 +51,6 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to static method getByCredentials\\(\\) on an unknown class Igniter\\\\Main\\\\Facades\\\\Auth\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to static method getDefault\\(\\) on an unknown class Igniter\\\\Main\\\\Models\\\\CustomerGroup\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to static method login\\(\\) on an unknown class Igniter\\\\Main\\\\Facades\\\\Auth\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to static method register\\(\\) on an unknown class Igniter\\\\Main\\\\Facades\\\\Auth\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Class Igniter\\\\System\\\\Classes\\\\ExtensionManager not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Function array_get not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Function flash not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Function page_url not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Function str_random not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Instantiated class Igniter\\\\Flame\\\\Exception\\\\ApplicationException not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Instantiated class Igniter\\\\Flame\\\\Exception\\\\SystemException not found\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^PHPDoc tag @throws with type Igniter\\\\Flame\\\\Exception\\\\SystemException is not subtype of Throwable$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Parameter \\$extensionManager of method Igniter\\\\Socialite\\\\Classes\\\\ProviderManager\\:\\:__construct\\(\\) has invalid type Igniter\\\\System\\\\Classes\\\\ExtensionManager\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Property Igniter\\\\Socialite\\\\Classes\\\\ProviderManager\\:\\:\\$extensionManager has unknown class Igniter\\\\System\\\\Classes\\\\ExtensionManager as its type\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Access to an undefined property Igniter\\\\Socialite\\\\Components\\\\Socialite\\:\\:\\$controller\\.$#"
-			count: 2
-			path: src/Components/Socialite.php
-
-		-
-			message: "#^Access to an undefined property Igniter\\\\Socialite\\\\Components\\\\Socialite\\:\\:\\$page\\.$#"
-			count: 1
-			path: src/Components/Socialite.php
-
-		-
-			message: "#^Call to an undefined method Igniter\\\\Socialite\\\\Components\\\\Socialite\\:\\:property\\(\\)\\.$#"
-			count: 2
-			path: src/Components/Socialite.php
-
-		-
-			message: "#^Call to an undefined method Igniter\\\\Socialite\\\\Components\\\\Socialite\\:\\:validate\\(\\)\\.$#"
-			count: 1
-			path: src/Components/Socialite.php
-
-		-
-			message: "#^Function post not found\\.$#"
-			count: 1
-			path: src/Components/Socialite.php
-
-		-
-			message: "#^Access to an undefined property Igniter\\\\Socialite\\\\Extension\\:\\:\\$app\\.$#"
-			count: 2
-			path: src/Extension.php
-
-		-
-			message: "#^Access to property \\$model on an unknown class Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 1
-			path: src/Extension.php
-
-		-
-			message: "#^Call to method getController\\(\\) on an unknown class Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 1
-			path: src/Extension.php
-
-		-
-			message: "#^Class Igniter\\\\System\\\\Http\\\\Controllers\\\\Extensions not found\\.$#"
-			count: 1
-			path: src/Extension.php
-
-		-
-			message: "#^Parameter \\$form of anonymous function has invalid type Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 1
-			path: src/Extension.php
-
-		-
 			message: "#^Access to an undefined property Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:\\$user_id\\.$#"
 			count: 1
 			path: src/Models/Provider.php
@@ -181,29 +61,9 @@ parameters:
 			path: src/Models/Provider.php
 
 		-
-			message: "#^Class Igniter\\\\System\\\\Actions\\\\SettingsModel not found\\.$#"
-			count: 1
-			path: src/Models/Settings.php
-
-		-
-			message: "#^Call to method addFields\\(\\) on an unknown class Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 1
-			path: src/SocialiteProviders/Facebook.php
-
-		-
 			message: "#^Call to static method driver\\(\\) on an unknown class Socialite\\.$#"
 			count: 2
 			path: src/SocialiteProviders/Facebook.php
-
-		-
-			message: "#^Parameter \\$form of method Igniter\\\\Socialite\\\\SocialiteProviders\\\\Facebook\\:\\:extendSettingsForm\\(\\) has invalid type Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 2
-			path: src/SocialiteProviders/Facebook.php
-
-		-
-			message: "#^Call to method addFields\\(\\) on an unknown class Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 1
-			path: src/SocialiteProviders/Google.php
 
 		-
 			message: "#^Call to static method driver\\(\\) on an unknown class Socialite\\.$#"
@@ -211,21 +71,6 @@ parameters:
 			path: src/SocialiteProviders/Google.php
 
 		-
-			message: "#^Parameter \\$form of method Igniter\\\\Socialite\\\\SocialiteProviders\\\\Google\\:\\:extendSettingsForm\\(\\) has invalid type Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 2
-			path: src/SocialiteProviders/Google.php
-
-		-
-			message: "#^Call to method addFields\\(\\) on an unknown class Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
-			count: 1
-			path: src/SocialiteProviders/Twitter.php
-
-		-
 			message: "#^Call to static method driver\\(\\) on an unknown class Socialite\\.$#"
-			count: 2
-			path: src/SocialiteProviders/Twitter.php
-
-		-
-			message: "#^Parameter \\$form of method Igniter\\\\Socialite\\\\SocialiteProviders\\\\Twitter\\:\\:extendSettingsForm\\(\\) has invalid type Igniter\\\\Admin\\\\Widgets\\\\Form\\.$#"
 			count: 2
 			path: src/SocialiteProviders/Twitter.php
