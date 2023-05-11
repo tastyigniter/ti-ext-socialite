@@ -17,6 +17,9 @@
 		"twitter",
 		"google"
 	],
+	"require": {
+		"laravel/socialite": "~5.2"
+	},
 	"require-dev": {
 		"laravel/pint": "^1.2",
 		"nunomaduro/larastan": "^2.4.0",
@@ -62,8 +65,5 @@
 			"composer/installers": true
 		},
 		"sort-packages": true
-	},
-	"require": {
-		"laravel/socialite": "~5.2"
 	}
 }
