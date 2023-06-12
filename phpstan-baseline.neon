@@ -6,29 +6,9 @@ parameters:
 			path: src/Classes/BaseProvider.php
 
 		-
-			message: "#^Call to an undefined static method Laravel\\\\Socialite\\\\Facades\\\\Socialite\\:\\:buildProvider\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/BaseProvider.php
-
-		-
 			message: "#^Call to an undefined static method Laravel\\\\Socialite\\\\Facades\\\\Socialite\\:\\:extend\\(\\)\\.$#"
 			count: 1
 			path: src/Classes/BaseProvider.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\Main\\\\Facades\\\\Auth\\:\\:getByCredentials\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\Main\\\\Facades\\\\Auth\\:\\:login\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\Main\\\\Facades\\\\Auth\\:\\:register\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
 
 		-
 			message: "#^Call to an undefined static method Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:find\\(\\)\\.$#"
@@ -41,8 +21,18 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Facades\\\\Event\\:\\:fire\\(\\)\\.$#"
-			count: 3
+			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:getByCredentials\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
+
+		-
+			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:login\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
+
+		-
+			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:register\\(\\)\\.$#"
+			count: 1
 			path: src/Classes/ProviderManager.php
 
 		-
