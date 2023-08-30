@@ -8,8 +8,8 @@ use Igniter\System\Classes\BaseComponent;
 
 class Socialite extends BaseComponent
 {
-    use ValidatesForm;
     use \Igniter\Main\Traits\UsesPage;
+    use ValidatesForm;
 
     public function defineProperties()
     {

@@ -105,7 +105,6 @@ class ProviderManager
 
     /**
      * Registers a single social provider.
-     * @param null $providerInfo
      */
     public function registerProvider($className, $providerInfo = null)
     {
