@@ -1,4 +1,4 @@
-<div class="alert text-reset">
+<div class="bg-light mt-3 p-3 border rounded">
     <h4>How to retrieve your credentials</h4>
     <ol class="pl-3">
         <li>Go to your <a target="_blank" href="https://developers.facebook.com/">Facebook Developers apps page</a>
