@@ -60,17 +60,6 @@ class Extension extends BaseExtension
         ];
     }
 
-    public function registerComponents()
-    {
-        return [
-            \Igniter\Socialite\Components\Socialite::class => [
-                'code' => 'socialite',
-                'name' => 'Socialite component',
-                'description' => 'Displays the social networks login buttons',
-            ],
-        ];
-    }
-
     protected function extendSettingsFormField()
     {
         Event::listen('admin.form.extendFields', function (Form $form) {
