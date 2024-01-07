@@ -3,7 +3,6 @@
 namespace Igniter\Socialite\Classes;
 
 use Exception;
-use Igniter\Flame\Exception\ApplicationException;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Socialite\Models\Provider;
 use Igniter\System\Classes\ExtensionManager;
@@ -176,7 +175,7 @@ class ProviderManager
 
         try {
             if (!$providerClassName = $this->resolveProvider($code)) {
-                throw new ApplicationException("Unknown socialite provider: $providerClassName.");
+                throw new \LogicException("Unknown socialite provider: $providerClassName.");
             }
 
             $providerClass = $this->makeProvider($providerClassName);
