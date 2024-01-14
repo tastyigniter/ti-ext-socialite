@@ -26,7 +26,7 @@ class Extension extends BaseExtension
         $this->extendSettingsFormField();
     }
 
-    public function registerSettings()
+    public function registerSettings(): array
     {
         return [
             'settings' => [
