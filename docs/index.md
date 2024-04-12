@@ -49,7 +49,7 @@ use.
 
 | Name     | Page variable                | Description                                      |
 | -------- | ---------------------------- | ------------------------------------------------ |
-| Socialite | `@componentPartial('socialite')` | Displays the social networks login buttons              |
+| Socialite | `@themeComponent('socialite')` | Displays the social networks login buttons              |
 
 ### Socialite Component
 
@@ -78,7 +78,7 @@ permalink: /login
     successPage: account/account
 ---
 ...
-@componentPartial('socialite')
+@themeComponent('socialite')
 ...
 ```
 
