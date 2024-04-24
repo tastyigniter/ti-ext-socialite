@@ -45,43 +45,6 @@ use.
 @endforeach
 ```
 
-## Components
-
-| Name     | Page variable                | Description                                      |
-| -------- | ---------------------------- | ------------------------------------------------ |
-| Socialite | `@themeComponent('socialite')` | Displays the social networks login buttons              |
-
-### Socialite Component
-
-**Properties**
-
-| Property                 | Description              | Example Value | Default Value |
-| ------------------------ | ------------------------ | ------------- | ------------- |
-| successPage           | Page name to redirect to when the user successfully login/register           | account/account         | account/account        |
-| redirectPage          | Page name to redirect to when there is an error       | account/login         |   account/login |
-
-**Variables available in templates**
-
-| Variable                  | Description                                                  |
-| ------------------------- | ------------------------------------------------------------ |
-| `{{ $socialiteLinks }}` | Array of social links                                                |
-
-**Example:**
-
-```
----
-title: 'Login'
-permalink: /login
-
-'[socialite]':
-    errorPage: account/login
-    successPage: account/account
----
-...
-@themeComponent('socialite')
-...
-```
-
 ## Extend
 
 **Example of Registering Socialite provider**
