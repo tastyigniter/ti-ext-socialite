@@ -278,7 +278,7 @@ class ProviderManager
             $provider->token = $providerUser->token;
             $provider->save();
 
-            $this->storeProviderData([
+            $this->setProviderData([
                 'id' => $provider->getKey(),
                 'user' => $providerUser,
             ]);
