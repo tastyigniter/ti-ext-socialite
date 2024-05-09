@@ -35,6 +35,17 @@ class Extension extends BaseExtension
                 'icon' => 'fa fa-users',
                 'model' => \Igniter\Socialite\Models\Settings::class,
                 'priority' => 700,
+                'permissions' => ['Igniter.Socialite.Manage'],
+            ],
+        ];
+    }
+
+    public function registerPermissions(): array
+    {
+        return [
+            'Igniter.Socialite.Manage' => [
+                'label' => 'igniter.socialite::default.help_permission',
+                'group' => 'igniter::admin.permissions.name',
             ],
         ];
     }
