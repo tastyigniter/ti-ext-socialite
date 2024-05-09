@@ -78,6 +78,20 @@ class ProviderManager
     }
 
     /**
+     * Returns a list of social provider links
+     * @return array
+     */
+    public function listProviderLinks()
+    {
+        return collect($this->listProviders())->mapWithKeys(function ($info, $className) {
+            $provider = $this->makeProvider($className, $info);
+            if ($provider->isEnabled()) {
+                return [$info['code'] => $provider->makeEntryPointUrl('auth')];
+            }
+        })->all();
+    }
+
+    /**
      * Load the registered social providers
      */
     public function loadProviders()
@@ -210,14 +224,14 @@ class ProviderManager
 
     public function completeCallback()
     {
-        $sessionProvider = session()->get('igniter_socialite_provider');
+        $providerData = $this->getProviderData();
 
-        if (!$sessionProvider || !isset($sessionProvider['user'])) {
+        if (!$providerData || !isset($providerData['user'])) {
             return;
         }
 
-        $providerUser = $sessionProvider['user'];
-        if (is_null($provider = Provider::find($sessionProvider['id']))) {
+        $providerUser = $providerData['user'];
+        if (is_null($provider = Provider::find($providerData['id']))) {
             return;
         }
 
@@ -230,7 +244,7 @@ class ProviderManager
         $provider->applyUser($user)->save();
 
         // Support custom login handling
-        $result = Event::dispatch('igniter.socialite.onLogin', [$providerUser, $user], true);
+        $result = Event::dispatch('igniter.socialite.beforeLogin', [$providerUser, $user], true);
         if ($result instanceof RedirectResponse) {
             return $result;
         }
@@ -238,6 +252,16 @@ class ProviderManager
         Auth::login($user, true);
 
         Event::dispatch('igniter.socialite.login', [$user], true);
+    }
+
+    public function getProviderData()
+    {
+        return session()->get('igniter_socialite_provider');
+    }
+
+    public function setProviderData(array $providerData)
+    {
+        session()->put('igniter_socialite_provider', (object)$providerData);
     }
 
     protected function handleProviderCallback($providerClass, $errorUrl)
@@ -254,7 +278,7 @@ class ProviderManager
             $provider->token = $providerUser->token;
             $provider->save();
 
-            session()->put('igniter_socialite_provider', [
+            $this->storeProviderData([
                 'id' => $provider->getKey(),
                 'user' => $providerUser,
             ]);
