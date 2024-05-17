@@ -88,6 +88,8 @@ class ProviderManager
             if ($provider->isEnabled()) {
                 return [$info['code'] => $provider->makeEntryPointUrl('auth')];
             }
+
+            return [];
         })->all();
     }
 
@@ -96,12 +98,15 @@ class ProviderManager
      */
     public function loadProviders()
     {
+        $this->providers = [];
+        $this->providerHints = [];
+
         foreach ($this->providerCallbacks as $callback) {
             $callback($this);
         }
 
         $registeredProviders = resolve(ExtensionManager::class)->getRegistrationMethodValues('registerSocialiteProviders');
-        foreach ($registeredProviders as $extensionCode => $socialProviders) {
+        foreach ($registeredProviders as $socialProviders) {
             $this->registerProviders($socialProviders);
         }
     }
