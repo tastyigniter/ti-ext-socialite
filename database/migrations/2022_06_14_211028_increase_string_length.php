@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('igniter_socialite_providers', function (Blueprint $table) {
+        Schema::table('igniter_socialite_providers', function(Blueprint $table) {
             $table->string('provider', 255)->change();
             $table->string('provider_id', 255)->change();
             $table->string('token', 255)->change();

@@ -9,7 +9,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('igniter_socialite_providers', function (Blueprint $table) {
+        Schema::table('igniter_socialite_providers', function(Blueprint $table) {
             $table->string('user_type')->nullable();
         });
 

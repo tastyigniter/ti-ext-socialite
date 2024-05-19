@@ -83,7 +83,7 @@ class ProviderManager
      */
     public function listProviderLinks()
     {
-        return collect($this->listProviders())->mapWithKeys(function ($info, $className) {
+        return collect($this->listProviders())->mapWithKeys(function($info, $className) {
             $provider = $this->makeProvider($className, $info);
             if ($provider->isEnabled()) {
                 return [$info['code'] => $provider->makeEntryPointUrl('auth')];

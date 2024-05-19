@@ -73,7 +73,7 @@ class Extension extends BaseExtension
 
     protected function extendSettingsFormField()
     {
-        Event::listen('admin.form.extendFields', function (Form $form) {
+        Event::listen('admin.form.extendFields', function(Form $form) {
             if (!$form->getController() instanceof \Igniter\System\Http\Controllers\Extensions) {
                 return;
             }

@@ -34,7 +34,7 @@ abstract class BaseProvider
     {
         $this->settings = Settings::instance();
 
-        Socialite::extend($this->driver, function ($app) {
+        Socialite::extend($this->driver, function($app) {
             $config = $this->getSetting();
             $config['redirect'] = $this->makeEntryPointUrl('callback');
 
