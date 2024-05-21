@@ -29,7 +29,7 @@ php artisan igniter:up
 
 ## Getting started
 
-To enable each social network that you would like to use, you need to configure the required settings in the admin area. Navigate to _System > Settings > Configure Social Login Providers_. Follow the instructions given below for each social network you would like to use.
+To enable each social network that you would like to use, you need to configure the required settings in the admin area. Navigate to _Manage > Settings > Configure Social Login Providers_. Follow the instructions given below for each social network you would like to use.
 
 ## Usage
 
