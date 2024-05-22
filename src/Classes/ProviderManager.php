@@ -79,7 +79,6 @@ class ProviderManager
 
     /**
      * Returns a list of social provider links
-     * @return array
      */
     public function listProviderLinks()
     {
@@ -90,7 +89,7 @@ class ProviderManager
             }
 
             return [];
-        })->all();
+        });
     }
 
     /**
