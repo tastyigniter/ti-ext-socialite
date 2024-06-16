@@ -26,12 +26,12 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:login\\(\\)\\.$#"
+			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:getProvider\\(\\)\\.$#"
 			count: 1
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:register\\(\\)\\.$#"
+			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:login\\(\\)\\.$#"
 			count: 1
 			path: src/Classes/ProviderManager.php
 
