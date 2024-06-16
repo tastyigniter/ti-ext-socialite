@@ -314,7 +314,7 @@ class ProviderManager
         ];
 
         if (!$user = Event::dispatch('igniter.socialite.register', [$providerUser, $provider], true)) {
-            $user = Auth::register($data, true);
+            $user = Auth::getProvider()->register($data, true);
         }
 
         return $user;
