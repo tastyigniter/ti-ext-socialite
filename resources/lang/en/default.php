@@ -6,5 +6,5 @@ return [
 
     'button_confirm' => 'Confirm',
 
-    'help_confirm_email' => '',
+    'help_confirm_email' => 'Please confirm your email address to continue.',
 ];
