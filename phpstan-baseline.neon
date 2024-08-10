@@ -11,6 +11,11 @@ parameters:
 			path: src/Classes/BaseProvider.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Optional\\:\\:getKey\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
+
+		-
 			message: "#^Call to an undefined static method Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:find\\(\\)\\.$#"
 			count: 1
 			path: src/Classes/ProviderManager.php
