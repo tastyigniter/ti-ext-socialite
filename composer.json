@@ -18,8 +18,8 @@
     "google"
   ],
   "require": {
-    "tastyigniter/core": "^v4.0@beta",
-    "tastyigniter/ti-ext-user": "^v4.0@beta",
+    "tastyigniter/core": "^v4.0@beta || ^v4.0@dev",
+    "tastyigniter/ti-ext-user": "^v4.0@beta || ^v4.0@dev",
     "laravel/socialite": "~5.2"
   },
   "require-dev": {
@@ -64,5 +64,5 @@
     },
     "sort-packages": true
   },
-  "minimum-stability": "beta"
+  "minimum-stability": "dev"
 }

@@ -230,12 +230,12 @@ class ProviderManager
     {
         $providerData = $this->getProviderData();
 
-        if (!$providerData || !isset($providerData['user'])) {
+        if (!$providerData || !isset($providerData->user)) {
             return;
         }
 
-        $providerUser = $providerData['user'];
-        if (is_null($provider = Provider::find($providerData['id']))) {
+        $providerUser = $providerData->user;
+        if (is_null($provider = Provider::find($providerData->id))) {
             return;
         }
 
@@ -263,9 +263,9 @@ class ProviderManager
         return session()->get('igniter_socialite_provider');
     }
 
-    public function setProviderData(array $providerData)
+    public function setProviderData(object $providerData)
     {
-        session()->put('igniter_socialite_provider', (object)$providerData);
+        session()->put('igniter_socialite_provider', $providerData);
     }
 
     protected function handleProviderCallback($providerClass, $errorUrl)
@@ -282,7 +282,7 @@ class ProviderManager
             $provider->token = $providerUser->token;
             $provider->save();
 
-            $this->setProviderData([
+            $this->setProviderData((object)[
                 'id' => $provider->getKey(),
                 'user' => $providerUser,
             ]);

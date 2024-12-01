@@ -205,7 +205,7 @@ public function onConfirmEmail()
     $manager = resolve(ProviderManager::class);
 
     $providerData = $manager->getProviderData();
-    $providerData['user']->email = $validated['email'];
+    $providerData->user->email = $validated['email'];
     $manager->setProviderData($providerData);
 
     return $manager->completeCallback();

@@ -4,8 +4,8 @@ namespace Igniter\Socialite\SocialiteProviders;
 
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
+use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\FacebookProvider;
-use Socialite;
 
 class Facebook extends BaseProvider
 {
@@ -51,6 +51,6 @@ class Facebook extends BaseProvider
 
     public function shouldConfirmEmail($providerUser)
     {
-        return !strlen($providerUser->email);
+        return empty($providerUser->email);
     }
 }
