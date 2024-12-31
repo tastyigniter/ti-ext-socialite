@@ -1,3 +1,10 @@
+<p align="center">
+    <a href="https://github.com/tastyigniter/ti-ext-socialite/actions"><img src="https://github.com/tastyigniter/ti-ext-socialite/actions/workflows/pipeline.yml/badge.svg" alt="Build Status"></a>
+    <a href="https://packagist.org/packages/tastyigniter/ti-ext-socialite"><img src="https://img.shields.io/packagist/dt/tastyigniter/ti-ext-socialite" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/tastyigniter/ti-ext-socialite"><img src="https://img.shields.io/packagist/v/tastyigniter/ti-ext-socialite" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/tastyigniter/ti-ext-socialite"><img src="https://img.shields.io/packagist/l/tastyigniter/ti-ext-socialite" alt="License"></a>
+</p>
+
 ## Introduction
 
 The TastyIgniter socialite extension enables customers to register and log in using their Facebook, Google, Twitter and other
