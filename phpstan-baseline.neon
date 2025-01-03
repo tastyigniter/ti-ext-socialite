@@ -16,6 +16,11 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
+			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\UserProvider\\:\\:register\\(\\)\\.$#"
+			count: 1
+			path: src/Classes/ProviderManager.php
+
+		-
 			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Optional\\:\\:getKey\\(\\)\\.$#"
 			count: 1
 			path: src/Classes/ProviderManager.php
@@ -31,34 +36,9 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:getByCredentials\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:getProvider\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\User\\\\Facades\\\\Auth\\:\\:login\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
 			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Str\\:\\:getClassId\\(\\)\\.$#"
 			count: 1
 			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Access to an undefined property Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:\\$user_id\\.$#"
-			count: 1
-			path: src/Models/Provider.php
-
-		-
-			message: "#^Access to an undefined property Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:\\$user_type\\.$#"
-			count: 1
-			path: src/Models/Provider.php
 
 		-
 			message: "#^Call to an undefined method Laravel\\\\Socialite\\\\Contracts\\\\Provider\\:\\:scopes\\(\\)\\.$#"
