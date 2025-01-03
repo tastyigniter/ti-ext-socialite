@@ -6,6 +6,14 @@ use Igniter\Flame\Database\Model;
 
 /**
  * Provider Model
+ *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string|null $provider
+ * @property string|null $provider_id
+ * @property string|null $token
+ * @property string|null $user_type
+ * @mixin \Igniter\Flame\Database\Model
  */
 class Provider extends Model
 {
