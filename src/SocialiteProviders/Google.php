@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\SocialiteProviders;
 
-use Override;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\Two\GoogleProvider;
+use Override;
 use Socialite;
 
 class Google extends BaseProvider

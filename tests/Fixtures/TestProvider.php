@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\Tests\Fixtures;
 
-use Override;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
+use Override;
 
 class TestProvider extends BaseProvider
 {

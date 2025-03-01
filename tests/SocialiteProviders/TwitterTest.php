@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\Tests\SocialiteProviders;
 
-use Laravel\Socialite\One\TwitterProvider;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Models\Settings;
 use Igniter\Socialite\SocialiteProviders\Twitter;
 use Laravel\Socialite\AbstractUser;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\One\TwitterProvider;
 use Mockery;
 
 it('builds Twitter provider with valid config and app', function(): void {
@@ -20,6 +20,7 @@ it('builds Twitter provider with valid config and app', function(): void {
         $provider = $callback(app());
 
         expect($provider)->toBeInstanceOf(TwitterProvider::class);
+
         return true;
     }));
 

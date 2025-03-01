@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\Classes;
 
-use LogicException;
 use Exception;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Socialite\Models\Provider;
@@ -14,6 +13,7 @@ use Igniter\User\Models\CustomerGroup;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Str;
 use Laravel\Socialite\AbstractUser as ProviderUser;
+use LogicException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProviderManager
@@ -256,6 +256,7 @@ class ProviderManager
         Auth::login($user, true);
 
         Event::dispatch('igniter.socialite.login', [$user], true);
+
         return null;
     }
 

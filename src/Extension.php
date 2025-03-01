@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite;
 
-use Override;
-use Laravel\Socialite\SocialiteServiceProvider;
-use Laravel\Socialite\Facades\Socialite;
+use Igniter\Admin\Widgets\Form;
+use Igniter\Socialite\Classes\ProviderManager;
 use Igniter\Socialite\Models\Settings;
 use Igniter\Socialite\SocialiteProviders\Facebook;
 use Igniter\Socialite\SocialiteProviders\Google;
 use Igniter\Socialite\SocialiteProviders\Twitter;
-use Igniter\System\Http\Controllers\Extensions;
-use Igniter\Admin\Widgets\Form;
-use Igniter\Socialite\Classes\ProviderManager;
 use Igniter\System\Classes\BaseExtension;
+use Igniter\System\Http\Controllers\Extensions;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\Event;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\SocialiteServiceProvider;
+use Override;
 
 /**
  * Socialite Extension Information File

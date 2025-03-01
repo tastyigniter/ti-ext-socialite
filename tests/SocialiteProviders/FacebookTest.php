@@ -26,7 +26,7 @@ it('extends settings form with Facebook fields', function(): void {
         }
     };
 
-    (new Facebook())->extendSettingsForm($form);
+    (new Facebook)->extendSettingsForm($form);
 });
 
 it('redirects to Facebook provider with email scope', function(): void {

@@ -14,7 +14,7 @@ it('applies user correctly', function(): void {
     $user->shouldReceive('getKey')->andReturn(1);
     $user->shouldReceive('getMorphClass')->andReturn('UserClass');
 
-    $provider = new Provider();
+    $provider = new Provider;
     $provider->applyUser($user);
 
     expect($provider->user_id)->toBe(1)
@@ -30,12 +30,12 @@ it('scopes query by user correctly', function(): void {
     $query->shouldReceive('where')->with('user_id', 1)->andReturnSelf()->once();
     $query->shouldReceive('where')->with('user_type', 'UserClass')->andReturnSelf()->once();
 
-    $provider = new Provider();
+    $provider = new Provider;
     $provider->scopeWhereUser($query, $user);
 });
 
 it('configures provider model correctly', function(): void {
-    $provider = new Provider();
+    $provider = new Provider;
 
     expect($provider->table)->toBe('igniter_socialite_providers')
         ->and($provider->getFillable())->toBe(['user_type', 'user_id', 'provider', 'provider_id', 'token'])

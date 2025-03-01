@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\SocialiteProviders;
 
-use Override;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\FacebookProvider;
+use Override;
 
 class Facebook extends BaseProvider
 {

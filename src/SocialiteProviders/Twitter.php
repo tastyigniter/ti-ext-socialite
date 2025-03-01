@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\SocialiteProviders;
 
-use Override;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\One\TwitterProvider;
 use League\OAuth1\Client\Server\Twitter as TwitterServer;
+use Override;
 use Socialite;
 
 class Twitter extends BaseProvider

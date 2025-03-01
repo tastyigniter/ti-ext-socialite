@@ -61,7 +61,7 @@ it('extends settings form field correctly', function(): void {
 
         public function getController(): AdminController
         {
-            return new Extensions();
+            return new Extensions;
         }
 
         public function addFields(array $fields, string $addToArea = ''): void
@@ -74,7 +74,7 @@ it('extends settings form field correctly', function(): void {
             ]);
         }
     };
-    $form->model = new Settings();
+    $form->model = new Settings;
 
     $providerManager = Mockery::mock(ProviderManager::class);
     $providerManager->shouldReceive('listProviders')->andReturn([
@@ -84,7 +84,7 @@ it('extends settings form field correctly', function(): void {
             'description' => 'Log in with Facebook',
         ],
     ]);
-    $providerManager->shouldReceive('makeProvider')->andReturn(new Facebook());
+    $providerManager->shouldReceive('makeProvider')->andReturn(new Facebook);
     app()->instance(ProviderManager::class, $providerManager);
 
     (new Extension(app()))->boot();

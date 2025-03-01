@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\Models;
 
-use Igniter\System\Actions\SettingsModel;
 use Igniter\Flame\Database\Model;
 use Igniter\Socialite\Classes\ProviderManager;
+use Igniter\System\Actions\SettingsModel;
 
 /**
  * Settings Model

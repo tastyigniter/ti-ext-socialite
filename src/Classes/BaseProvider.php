@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\Classes;
 
-use Throwable;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Laravel\Socialite\AbstractUser;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Models\Settings;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
+use Laravel\Socialite\AbstractUser;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Throwable;
 
 abstract class BaseProvider
 {
