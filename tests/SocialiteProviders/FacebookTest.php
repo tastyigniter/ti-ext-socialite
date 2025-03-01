@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Tests\SocialiteProviders;
 
 use Igniter\Admin\Widgets\Form;
@@ -8,14 +10,14 @@ use Laravel\Socialite\AbstractUser;
 use Laravel\Socialite\Facades\Socialite;
 use Mockery;
 
-it('extends settings form with Facebook fields', function() {
+it('extends settings form with Facebook fields', function(): void {
     $form = new class extends Form
     {
         public function __construct() {}
 
-        public function addFields(array $fields, $addToArea = null)
+        public function addFields(array $fields, string $addToArea = ''): void
         {
-            return expect($fields)->toHaveKeys([
+            expect($fields)->toHaveKeys([
                 'setup',
                 'providers[facebook][status]',
                 'providers[facebook][client_id]',
@@ -27,7 +29,7 @@ it('extends settings form with Facebook fields', function() {
     (new Facebook())->extendSettingsForm($form);
 });
 
-it('redirects to Facebook provider with email scope', function() {
+it('redirects to Facebook provider with email scope', function(): void {
     Socialite::shouldReceive('extend')->andReturnSelf();
     Socialite::shouldReceive('driver')->with('facebook')->andReturnSelf();
     Socialite::shouldReceive('scopes')->with(['email'])->andReturnSelf();
@@ -38,7 +40,7 @@ it('redirects to Facebook provider with email scope', function() {
     expect($response)->toBe('redirect_response');
 });
 
-it('handles Facebook provider callback and returns user', function() {
+it('handles Facebook provider callback and returns user', function(): void {
     Socialite::shouldReceive('extend')->andReturnSelf();
     Socialite::shouldReceive('driver')->with('facebook')->andReturnSelf();
     Socialite::shouldReceive('user')->andReturn('user_instance');
@@ -48,7 +50,7 @@ it('handles Facebook provider callback and returns user', function() {
     expect($user)->toBe('user_instance');
 });
 
-it('confirms email if facebook provider user has no email', function() {
+it('confirms email if facebook provider user has no email', function(): void {
     $providerUser = Mockery::mock(AbstractUser::class);
     $providerUser->email = '';
 
@@ -57,7 +59,7 @@ it('confirms email if facebook provider user has no email', function() {
     expect($shouldConfirm)->toBeTrue();
 });
 
-it('does not confirm email if facebook provider user has email', function() {
+it('does not confirm email if facebook provider user has email', function(): void {
     $providerUser = Mockery::mock(AbstractUser::class);
     $providerUser->email = 'user@example.com';
 

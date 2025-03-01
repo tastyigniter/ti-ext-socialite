@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Models;
 
 use Igniter\Flame\Database\Model;
@@ -13,7 +15,7 @@ use Igniter\Flame\Database\Model;
  * @property string|null $provider_id
  * @property string|null $token
  * @property string|null $user_type
- * @mixin \Igniter\Flame\Database\Model
+ * @mixin Model
  */
 class Provider extends Model
 {
@@ -36,7 +38,7 @@ class Provider extends Model
         ],
     ];
 
-    public function applyUser($user)
+    public function applyUser($user): static
     {
         $this->user_id = $user->getKey();
         $this->user_type = $user->getMorphClass();
@@ -44,7 +46,7 @@ class Provider extends Model
         return $this;
     }
 
-    public function scopeWhereUser($query, $user)
+    public function scopeWhereUser($query, $user): void
     {
         $query->where('user_id', $user->getKey());
         $query->where('user_type', $user->getMorphClass());

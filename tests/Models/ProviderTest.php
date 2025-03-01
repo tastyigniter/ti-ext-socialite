@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Tests\Models;
 
 use Igniter\Flame\Database\Builder;
@@ -7,7 +9,7 @@ use Igniter\Socialite\Models\Provider;
 use Igniter\User\Models\User;
 use Mockery;
 
-it('applies user correctly', function() {
+it('applies user correctly', function(): void {
     $user = Mockery::mock(User::class);
     $user->shouldReceive('getKey')->andReturn(1);
     $user->shouldReceive('getMorphClass')->andReturn('UserClass');
@@ -19,7 +21,7 @@ it('applies user correctly', function() {
         ->and($provider->user_type)->toBe('UserClass');
 });
 
-it('scopes query by user correctly', function() {
+it('scopes query by user correctly', function(): void {
     $user = Mockery::mock('User');
     $user->shouldReceive('getKey')->andReturn(1)->once();
     $user->shouldReceive('getMorphClass')->andReturn('UserClass')->once();
@@ -32,7 +34,7 @@ it('scopes query by user correctly', function() {
     $provider->scopeWhereUser($query, $user);
 });
 
-it('configures provider model correctly', function() {
+it('configures provider model correctly', function(): void {
     $provider = new Provider();
 
     expect($provider->table)->toBe('igniter_socialite_providers')

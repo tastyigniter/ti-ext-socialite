@@ -1,7 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite;
 
+use Override;
+use Laravel\Socialite\SocialiteServiceProvider;
+use Laravel\Socialite\Facades\Socialite;
+use Igniter\Socialite\Models\Settings;
+use Igniter\Socialite\SocialiteProviders\Facebook;
+use Igniter\Socialite\SocialiteProviders\Google;
+use Igniter\Socialite\SocialiteProviders\Twitter;
+use Igniter\System\Http\Controllers\Extensions;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\ProviderManager;
 use Igniter\System\Classes\BaseExtension;
@@ -13,19 +23,22 @@ use Illuminate\Support\Facades\Event;
  */
 class Extension extends BaseExtension
 {
-    public function register()
+    #[Override]
+    public function register(): void
     {
         $this->app->singleton(ProviderManager::class);
 
-        $this->app->register(\Laravel\Socialite\SocialiteServiceProvider::class);
-        AliasLoader::getInstance()->alias('Socialite', \Laravel\Socialite\Facades\Socialite::class);
+        $this->app->register(SocialiteServiceProvider::class);
+        AliasLoader::getInstance()->alias('Socialite', Socialite::class);
     }
 
-    public function boot()
+    #[Override]
+    public function boot(): void
     {
         $this->extendSettingsFormField();
     }
 
+    #[Override]
     public function registerSettings(): array
     {
         return [
@@ -33,13 +46,14 @@ class Extension extends BaseExtension
                 'label' => 'Configure Social Login Providers',
                 'description' => 'Configure social login providers with API credentials.',
                 'icon' => 'fa fa-users',
-                'model' => \Igniter\Socialite\Models\Settings::class,
+                'model' => Settings::class,
                 'priority' => 700,
                 'permissions' => ['Igniter.Socialite.Manage'],
             ],
         ];
     }
 
+    #[Override]
     public function registerPermissions(): array
     {
         return [
@@ -50,20 +64,20 @@ class Extension extends BaseExtension
         ];
     }
 
-    public function registerSocialiteProviders()
+    public function registerSocialiteProviders(): array
     {
         return [
-            \Igniter\Socialite\SocialiteProviders\Facebook::class => [
+            Facebook::class => [
                 'code' => 'facebook',
                 'label' => 'Facebook',
                 'description' => 'Log in with Facebook',
             ],
-            \Igniter\Socialite\SocialiteProviders\Google::class => [
+            Google::class => [
                 'code' => 'google',
                 'label' => 'Google',
                 'description' => 'Log in with Google',
             ],
-            \Igniter\Socialite\SocialiteProviders\Twitter::class => [
+            Twitter::class => [
                 'code' => 'twitter',
                 'label' => 'Twitter',
                 'description' => 'Log in with Twitter',
@@ -73,10 +87,10 @@ class Extension extends BaseExtension
 
     protected function extendSettingsFormField()
     {
-        Event::listen('admin.form.extendFields', function(Form $form) {
+        Event::listen('admin.form.extendFields', function(Form $form): void {
             if (
-                $form->getController() instanceof \Igniter\System\Http\Controllers\Extensions
-                && $form->model instanceof \Igniter\Socialite\Models\Settings
+                $form->getController() instanceof Extensions
+                && $form->model instanceof Settings
             ) {
                 $manager = resolve(ProviderManager::class);
                 foreach ($manager->listProviders() as $class => $details) {

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\SocialiteProviders;
 
+use Override;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\One\TwitterProvider;
@@ -12,6 +15,7 @@ class Twitter extends BaseProvider
 {
     protected $provider = TwitterProvider::class;
 
+    #[Override]
     protected function buildProvider($config, $app)
     {
         return new $this->provider(
@@ -19,7 +23,8 @@ class Twitter extends BaseProvider
         );
     }
 
-    public function extendSettingsForm(Form $form)
+    #[Override]
+    public function extendSettingsForm(Form $form): void
     {
         $form->addFields([
             'setup' => [
@@ -48,17 +53,20 @@ class Twitter extends BaseProvider
         ], 'primary');
     }
 
+    #[Override]
     public function redirectToProvider()
     {
         return Socialite::driver($this->driver)->redirect();
     }
 
+    #[Override]
     public function handleProviderCallback()
     {
         return Socialite::driver($this->driver)->user();
     }
 
-    public function shouldConfirmEmail($providerUser)
+    #[Override]
+    public function shouldConfirmEmail($providerUser): bool
     {
         return !strlen($providerUser->email);
     }

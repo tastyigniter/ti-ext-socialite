@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Tests;
 
 use Igniter\Admin\Classes\AdminController;
@@ -14,7 +16,7 @@ use Igniter\System\Http\Controllers\Extensions;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 
-it('registers settings with correct configuration', function() {
+it('registers settings with correct configuration', function(): void {
     $extension = new Extension(app());
     $settings = $extension->registerSettings();
 
@@ -27,7 +29,7 @@ it('registers settings with correct configuration', function() {
         ->and($settings['settings']['permissions'])->toContain('Igniter.Socialite.Manage');
 });
 
-it('registers permissions with correct configuration', function() {
+it('registers permissions with correct configuration', function(): void {
     $extension = new Extension(app());
     $permissions = $extension->registerPermissions();
 
@@ -36,7 +38,7 @@ it('registers permissions with correct configuration', function() {
         ->and($permissions['Igniter.Socialite.Manage']['group'])->toBe('igniter::admin.permissions.name');
 });
 
-it('registers socialite providers correctly', function() {
+it('registers socialite providers correctly', function(): void {
     $extension = new Extension(app());
     $providers = $extension->registerSocialiteProviders();
 
@@ -52,7 +54,7 @@ it('registers socialite providers correctly', function() {
         ->and($providers[Twitter::class]['description'])->toBe('Log in with Twitter');
 });
 
-it('extends settings form field correctly', function() {
+it('extends settings form field correctly', function(): void {
     $form = new class extends Form
     {
         public function __construct() {}
@@ -62,7 +64,7 @@ it('extends settings form field correctly', function() {
             return new Extensions();
         }
 
-        public function addFields(array $fields, $addToArea = null)
+        public function addFields(array $fields, string $addToArea = ''): void
         {
             expect($fields)->toHaveKeys([
                 'setup',

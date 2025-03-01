@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Tests\SocialiteProviders;
 
 use Igniter\Admin\Widgets\Form;
@@ -8,14 +10,14 @@ use Laravel\Socialite\AbstractUser;
 use Laravel\Socialite\Facades\Socialite;
 use Mockery;
 
-it('extends settings form with Google fields', function() {
+it('extends settings form with Google fields', function(): void {
     $form = new class extends Form
     {
         public function __construct() {}
 
-        public function addFields(array $fields, $addToArea = null)
+        public function addFields(array $fields, string $addToArea = ''): void
         {
-            return expect($fields)->toHaveKeys([
+            expect($fields)->toHaveKeys([
                 'setup',
                 'providers[google][status]',
                 'providers[google][app_name]',
@@ -28,7 +30,7 @@ it('extends settings form with Google fields', function() {
     (new Google('google'))->extendSettingsForm($form);
 });
 
-it('redirects to Google provider', function() {
+it('redirects to Google provider', function(): void {
     Socialite::shouldReceive('extend')->andReturnSelf();
     Socialite::shouldReceive('driver')->with('google')->andReturnSelf();
     Socialite::shouldReceive('redirect')->andReturn('redirect_response');
@@ -38,7 +40,7 @@ it('redirects to Google provider', function() {
     expect($response)->toBe('redirect_response');
 });
 
-it('handles Google provider callback and returns user', function() {
+it('handles Google provider callback and returns user', function(): void {
     Socialite::shouldReceive('extend')->andReturnSelf();
     Socialite::shouldReceive('driver')->with('google')->andReturnSelf();
     Socialite::shouldReceive('user')->andReturn('user_instance');
@@ -48,7 +50,7 @@ it('handles Google provider callback and returns user', function() {
     expect($user)->toBe('user_instance');
 });
 
-it('confirms email if google provider user has no email', function() {
+it('confirms email if google provider user has no email', function(): void {
     $providerUser = Mockery::mock(AbstractUser::class);
     $providerUser->email = '';
 
@@ -57,7 +59,7 @@ it('confirms email if google provider user has no email', function() {
     expect($shouldConfirm)->toBeTrue();
 });
 
-it('does not confirm email if google provider user has email', function() {
+it('does not confirm email if google provider user has email', function(): void {
     $providerUser = Mockery::mock(AbstractUser::class);
     $providerUser->email = 'user@example.com';
 

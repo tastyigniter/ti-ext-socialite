@@ -1,8 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Classes;
 
-use Exception;
+use Throwable;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Laravel\Socialite\AbstractUser;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Models\Settings;
 use Illuminate\Support\Facades\Log;
@@ -12,18 +16,14 @@ use Laravel\Socialite\Two\InvalidStateException;
 
 abstract class BaseProvider
 {
-    protected $driver;
-
     protected $provider;
 
     protected $settings;
 
     protected static $configCallbacks = [];
 
-    public function __construct($driver = null)
+    public function __construct(protected $driver = null)
     {
-        $this->driver = $driver;
-
         $this->initialize();
     }
 
@@ -98,7 +98,7 @@ abstract class BaseProvider
         return false;
     }
 
-    public function handleProviderException(Exception $ex)
+    public function handleProviderException(Throwable $ex): void
     {
         if ($ex instanceof InvalidStateException) {
             flash()->error('Invalid State');
@@ -140,18 +140,18 @@ abstract class BaseProvider
     /**
      * Redirect the user to the OAuth Provider.
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     abstract public function redirectToProvider();
 
     /**
      * Obtain the user information from provider.
      *
-     * @return \Laravel\Socialite\AbstractUser
+     * @return AbstractUser
      */
     abstract public function handleProviderCallback();
 
-    public static function extendConfig(callable $callback)
+    public static function extendConfig(callable $callback): void
     {
         self::$configCallbacks[] = $callback;
     }

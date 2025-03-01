@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Models;
 
+use Igniter\System\Actions\SettingsModel;
 use Igniter\Flame\Database\Model;
 use Igniter\Socialite\Classes\ProviderManager;
 
@@ -10,7 +13,7 @@ use Igniter\Socialite\Classes\ProviderManager;
  */
 class Settings extends Model
 {
-    public array $implement = [\Igniter\System\Actions\SettingsModel::class];
+    public array $implement = [SettingsModel::class];
 
     // A unique code
     public string $settingsCode = 'igniter_socialite_settings';

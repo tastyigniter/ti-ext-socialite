@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Classes;
 
+use LogicException;
 use Exception;
 use Igniter\Flame\Exception\SystemException;
 use Igniter\Socialite\Models\Provider;
@@ -57,11 +60,7 @@ class ProviderManager
             $this->listProviders();
         }
 
-        if (isset($this->providerHints[$name])) {
-            return $this->providerHints[$name];
-        }
-
-        return null;
+        return $this->providerHints[$name] ?? null;
     }
 
     /**
@@ -82,7 +81,7 @@ class ProviderManager
      */
     public function listProviderLinks()
     {
-        return collect($this->listProviders())->mapWithKeys(function($info, $className) {
+        return collect($this->listProviders())->mapWithKeys(function(array $info, $className): array {
             $provider = $this->makeProvider($className, $info);
             if ($provider->isEnabled()) {
                 return [$info['code'] => $provider->makeEntryPointUrl('auth')];
@@ -95,7 +94,7 @@ class ProviderManager
     /**
      * Load the registered social providers
      */
-    public function loadProviders()
+    public function loadProviders(): void
     {
         $this->providers = [];
         $this->providerHints = [];
@@ -113,7 +112,7 @@ class ProviderManager
     /**
      * Registers the social providers
      */
-    public function registerProviders($providers)
+    public function registerProviders($providers): void
     {
         foreach ($providers as $className => $providerInfo) {
             $this->registerProvider($className, $providerInfo);
@@ -123,7 +122,7 @@ class ProviderManager
     /**
      * Registers a single social provider.
      */
-    public function registerProvider($className, $providerInfo = null)
+    public function registerProvider($className, $providerInfo = null): void
     {
         $providerCode = $providerInfo['code'] ?? null;
         if (!$providerCode) {
@@ -145,7 +144,7 @@ class ProviderManager
      *   });
      * </pre>
      */
-    public function registerCallback(callable $definitions)
+    public function registerCallback(callable $definitions): void
     {
         $this->providerCallbacks[] = $definitions;
     }
@@ -154,8 +153,8 @@ class ProviderManager
      * Makes a social provider object with the supplied configuration
      *
      * @param array|null $providerInfo
-     * @return \Igniter\Socialite\Classes\BaseProvider
-     * @throws \Igniter\Flame\Exception\SystemException
+     * @return BaseProvider
+     * @throws SystemException
      */
     public function makeProvider($className, $providerInfo = null)
     {
@@ -172,7 +171,7 @@ class ProviderManager
         return new $className($code);
     }
 
-    public function resolveUserType(callable $callback)
+    public function resolveUserType(callable $callback): void
     {
         $this->resolveUserTypeCallbacks[] = $callback;
     }
@@ -183,7 +182,7 @@ class ProviderManager
      * @param string $code Social provider code
      * @param string $action auth: redirect to provider or callback: handle response
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function runEntryPoint($code, $action)
     {
@@ -193,7 +192,7 @@ class ProviderManager
 
         try {
             if (!$providerClassName = $this->resolveProvider($code)) {
-                throw new \LogicException("Unknown socialite provider: $providerClassName.");
+                throw new LogicException(sprintf('Unknown socialite provider: %s.', $providerClassName));
             }
 
             $providerClass = $this->makeProvider($providerClassName);
@@ -226,21 +225,22 @@ class ProviderManager
         }
     }
 
-    public function completeCallback()
+    public function completeCallback(): ?RedirectResponse
     {
         $providerData = $this->getProviderData();
 
         if (!$providerData || !isset($providerData->user)) {
-            return;
+            return null;
         }
 
         $providerUser = $providerData->user;
         if (is_null($provider = Provider::find($providerData->id))) {
-            return;
+            return null;
         }
 
+        /** @var Provider $provider */
         if (event('igniter.socialite.completeCallback', [$providerUser, $provider], true) === true) {
-            return;
+            return null;
         }
 
         $user = $this->createOrUpdateUser($providerUser, $provider);
@@ -256,6 +256,7 @@ class ProviderManager
         Auth::login($user, true);
 
         Event::dispatch('igniter.socialite.login', [$user], true);
+        return null;
     }
 
     public function getProviderData()
@@ -263,7 +264,7 @@ class ProviderManager
         return session()->get('igniter_socialite_provider');
     }
 
-    public function setProviderData(object $providerData)
+    public function setProviderData(object $providerData): void
     {
         session()->put('igniter_socialite_provider', $providerData);
     }
@@ -273,6 +274,7 @@ class ProviderManager
         try {
             $providerUser = $providerClass->handleProviderCallback();
 
+            /** @var Provider $provider */
             $provider = Provider::firstOrNew([
                 'user_type' => $this->resolveUserTypeCallback(),
                 'provider' => $providerClass->getDriver(),
@@ -295,6 +297,8 @@ class ProviderManager
 
             return redirect()->to($errorUrl);
         }
+
+        return null;
     }
 
     protected function createOrUpdateUser(ProviderUser $providerUser, Provider $provider)
@@ -306,9 +310,7 @@ class ProviderManager
         $data = [
             'first_name' => $providerUser->getName() ?? 'blank name',
             'email' => $providerUser->getEmail(),
-            // Generate a random password for the new user
             'password' => str_random(),
-            // Assign the new user to default group
             'customer_group_id' => optional(CustomerGroup::getDefault())->getKey(),
             'status' => true,
         ];

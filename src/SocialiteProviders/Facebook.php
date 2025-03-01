@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\SocialiteProviders;
 
+use Override;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\BaseProvider;
 use Laravel\Socialite\Facades\Socialite;
@@ -11,7 +14,8 @@ class Facebook extends BaseProvider
 {
     protected $provider = FacebookProvider::class;
 
-    public function extendSettingsForm(Form $form)
+    #[Override]
+    public function extendSettingsForm(Form $form): void
     {
         $form->addFields([
             'setup' => [
@@ -39,17 +43,20 @@ class Facebook extends BaseProvider
         ], 'primary');
     }
 
+    #[Override]
     public function redirectToProvider()
     {
         return Socialite::driver($this->driver)->scopes(['email'])->redirect();
     }
 
+    #[Override]
     public function handleProviderCallback()
     {
         return Socialite::driver($this->driver)->user();
     }
 
-    public function shouldConfirmEmail($providerUser)
+    #[Override]
+    public function shouldConfirmEmail($providerUser): bool
     {
         return empty($providerUser->email);
     }

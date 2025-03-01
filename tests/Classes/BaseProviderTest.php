@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Igniter\Socialite\Tests\Classes;
 
 use Exception;
@@ -14,15 +16,15 @@ use Laravel\Socialite\Two\InvalidStateException;
 use Mockery;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-beforeEach(function() {
+beforeEach(function(): void {
     $this->provider = new class('driver') extends BaseProvider
     {
-        public function extendSettingsForm(Form $form)
+        public function extendSettingsForm(Form $form): null
         {
             return null;
         }
 
-        public function redirectToProvider()
+        public function redirectToProvider(): RedirectResponse
         {
             return new RedirectResponse('http://redirect.url');
         }
@@ -34,30 +36,28 @@ beforeEach(function() {
     };
 });
 
-it('initializes settings and extends socialite driver', function() {
+it('initializes settings and extends socialite driver', function(): void {
     $provider = Mockery::mock(BaseProvider::class)->makePartial()->shouldAllowMockingProtectedMethods();
     $provider->shouldReceive('getSetting')->andReturn(['client_id' => 'id', 'client_secret' => 'secret'])->once();
     $provider->shouldReceive('makeEntryPointUrl')->with('callback')->andReturn('http://callback.url')->once();
     $provider->shouldReceive('buildProvider')->andReturn('provider_instance')->once();
 
-    Socialite::shouldReceive('extend')->with('driver', Mockery::on(function($callback) use ($provider) {
-        return $callback(app()) === 'provider_instance';
-    }));
+    Socialite::shouldReceive('extend')->with('driver', Mockery::on(fn($callback): bool => $callback(app()) === 'provider_instance'));
 
     $provider->__construct('driver');
 });
 
-it('returns correct driver', function() {
+it('returns correct driver', function(): void {
     expect($this->provider->getDriver())->toBe('driver');
 });
 
-it('returns correct setting value', function() {
+it('returns correct setting value', function(): void {
     Settings::set('providers', ['driver' => ['key' => 'value']]);
 
     expect($this->provider->getSetting('key'))->toBe('value');
 });
 
-it('returns correct entry point URL', function() {
+it('returns correct entry point URL', function(): void {
     URL::shouldReceive('route')->with('igniter_socialite_provider', Mockery::any(), true)->andReturn('http://callback.url');
 
     $provider = Mockery::mock(BaseProvider::class)->makePartial();
@@ -66,13 +66,13 @@ it('returns correct entry point URL', function() {
     expect($provider->makeEntryPointUrl('callback'))->toBe('http://callback.url');
 });
 
-it('returns true when provider is enabled', function() {
+it('returns true when provider is enabled', function(): void {
     Settings::set('providers', ['driver' => ['status' => 1]]);
 
     expect($this->provider->isEnabled())->toBeTrue();
 });
 
-it('handles provider exception correctly', function() {
+it('handles provider exception correctly', function(): void {
     $provider = Mockery::mock(BaseProvider::class)->makePartial();
     $provider->shouldReceive('handleProviderException')->passthru();
 
@@ -89,8 +89,8 @@ it('handles provider exception correctly', function() {
     expect(flash()->messages()->first())->level->toBe('danger')->message->not->toBeEmpty();
 });
 
-it('extends config correctly', function() {
-    $callback = function($config, $provider) {
+it('extends config correctly', function(): void {
+    $callback = function(array $config, $provider) {
         $config['extra'] = 'value';
         return $config;
     };
@@ -98,13 +98,9 @@ it('extends config correctly', function() {
     BaseProvider::extendConfig($callback);
 
     $provider = Mockery::mock(BaseProvider::class)->makePartial()->shouldAllowMockingProtectedMethods();
-    Socialite::shouldReceive('extend')->with('driver', Mockery::on(function($callback) use ($provider) {
-        return $callback(app()) === 'provider_instance';
-    }));
+    Socialite::shouldReceive('extend')->with('driver', Mockery::on(fn($callback): bool => $callback(app()) === 'provider_instance'));
 
-    Socialite::shouldReceive('buildProvider')->with(Mockery::any(), Mockery::on(function($config) {
-        return $config['extra'] === 'value';
-    }))->andReturn('provider_instance')->once();
+    Socialite::shouldReceive('buildProvider')->with(Mockery::any(), Mockery::on(fn($config): bool => $config['extra'] === 'value'))->andReturn('provider_instance')->once();
 
     $provider->__construct('driver');
 });

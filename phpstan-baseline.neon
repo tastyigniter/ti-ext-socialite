@@ -6,11 +6,6 @@ parameters:
 			path: src/Classes/BaseProvider.php
 
 		-
-			message: "#^Call to an undefined static method Laravel\\\\Socialite\\\\Facades\\\\Socialite\\:\\:extend\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/BaseProvider.php
-
-		-
 			message: "#^Access to an undefined property object\\:\\:\\$id\\.$#"
 			count: 1
 			path: src/Classes/ProviderManager.php
@@ -21,36 +16,6 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Support\\\\Optional\\:\\:getKey\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:find\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Igniter\\\\Socialite\\\\Models\\\\Provider\\:\\:firstOrNew\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
-			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Str\\:\\:getClassId\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
 			message: "#^Call to an undefined method Laravel\\\\Socialite\\\\Contracts\\\\Provider\\:\\:scopes\\(\\)\\.$#"
 			count: 1
 			path: src/SocialiteProviders/Facebook.php
-
-		-
-			message: "#^Call to static method driver\\(\\) on an unknown class Socialite\\.$#"
-			count: 2
-			path: src/SocialiteProviders/Google.php
-
-		-
-			message: "#^Call to static method driver\\(\\) on an unknown class Socialite\\.$#"
-			count: 2
-			path: src/SocialiteProviders/Twitter.php
