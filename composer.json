@@ -1,75 +1,80 @@
 {
-  "name": "tastyigniter/ti-ext-socialite",
-  "type": "tastyigniter-package",
-  "description": "Allows visitors to register/sign in with their social media accounts.",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Sam Poyigi",
-      "email": "sam@sampoyigi.com"
-    }
-  ],
-  "keywords": [
-    "tastyigniter",
-    "social",
-    "login",
-    "facebook",
-    "twitter",
-    "google"
-  ],
-  "require": {
-    "tastyigniter/core": "^v4.0",
-    "tastyigniter/ti-ext-user": "^v4.0",
-    "laravel/socialite": "^5.2"
-  },
-  "require-dev": {
-    "larastan/larastan": "^2.4.0",
-    "laravel/pint": "^1.2",
-    "pestphp/pest-plugin-laravel": "^3.0",
-    "rector/rector": "^1.2",
-    "sampoyigi/testbench": "^1.0"
-  },
-  "autoload": {
-    "psr-4": {
-      "Igniter\\Socialite\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Igniter\\Socialite\\Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "tastyigniter-extension": {
-      "code": "igniter.socialite",
-      "name": "Socialite",
-      "icon": {
-        "class": "fa fa-users",
-        "color": "#1F4E62",
-        "backgroundColor": "#4FC3F7"
-      },
-      "homepage": "https://tastyigniter.com/marketplace/item/igniter-socialite"
-    }
-  },
-  "scripts": {
-    "test": "vendor/bin/pest --compact",
-    "test-coverage": "vendor/bin/pest --coverage --exactly=100 --compact",
-    "type-coverage": "vendor/bin/pest --type-coverage --min=100",
-    "format": "vendor/bin/pint",
-    "refactor": "vendor/bin/rector process --dry-run",
-    "static": "vendor/bin/phpstan analyse --ansi --memory-limit 1056M",
-    "test-suite": [
-      "@refactor",
-      "@static",
-      "@test-coverage"
-    ]
-  },
-  "config": {
-    "allow-plugins": {
-      "pestphp/pest-plugin": true,
-      "php-http/discovery": true,
-      "composer/installers": true
+    "name": "tastyigniter/ti-ext-socialite",
+    "type": "tastyigniter-package",
+    "description": "Allows visitors to register/sign in with their social media accounts.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sam Poyigi",
+            "email": "sam@sampoyigi.com"
+        }
+    ],
+    "keywords": [
+        "tastyigniter",
+        "social",
+        "login",
+        "facebook",
+        "twitter",
+        "google"
+    ],
+    "require": {
+        "tastyigniter/core": "^v4.0",
+        "tastyigniter/ti-ext-user": "^v4.0",
+        "laravel/socialite": "^5.2"
     },
-    "sort-packages": true
-  }
+    "require-dev": {
+        "larastan/larastan": "^2.4.0",
+        "laravel/pint": "^1.2",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "rector/rector": "^1.2",
+        "sampoyigi/testbench": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Igniter\\Socialite\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Igniter\\Socialite\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "tastyigniter-extension": {
+            "code": "igniter.socialite",
+            "name": "Socialite",
+            "icon": {
+                "class": "fa fa-users",
+                "color": "#1F4E62",
+                "backgroundColor": "#4FC3F7"
+            },
+            "homepage": "https://tastyigniter.com/marketplace/item/igniter-socialite"
+        },
+        "branch-alias": {
+            "dev-master": "4.0.x-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "composer/installers": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/pest --compact",
+        "test-coverage": "vendor/bin/pest --coverage --exactly=100 --compact",
+        "type-coverage": "vendor/bin/pest --type-coverage --min=100",
+        "format": "vendor/bin/pint",
+        "refactor": "vendor/bin/rector process --dry-run",
+        "static": "vendor/bin/phpstan analyse --ansi --memory-limit 1056M",
+        "test-suite": [
+            "@refactor",
+            "@static",
+            "@test-coverage"
+        ]
+    }
 }
