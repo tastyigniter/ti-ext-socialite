@@ -11,11 +11,6 @@ parameters:
 			path: src/Classes/ProviderManager.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\UserProvider\\:\\:register\\(\\)\\.$#"
-			count: 1
-			path: src/Classes/ProviderManager.php
-
-		-
 			message: "#^Call to an undefined method Laravel\\\\Socialite\\\\Contracts\\\\Provider\\:\\:scopes\\(\\)\\.$#"
 			count: 1
 			path: src/SocialiteProviders/Facebook.php
