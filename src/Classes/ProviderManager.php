@@ -52,7 +52,7 @@ class ProviderManager
 
     /**
      * Returns a class name from a social provide code
-     * @return string The class name resolved, or null.
+     * @return null|string The class name resolved, or null.
      */
     public function resolveProvider($name)
     {
@@ -239,7 +239,9 @@ class ProviderManager
         }
 
         /** @var Provider $provider */
-        if (event('igniter.socialite.completeCallback', [$providerUser, $provider], true) === true) {
+        $result = event('igniter.socialite.completeCallback', [$providerUser, $provider], true);
+        /** @var bool $result */
+        if ($result === true) {
             return null;
         }
 
@@ -248,6 +250,7 @@ class ProviderManager
         $provider->applyUser($user)->save();
 
         // Support custom login handling
+        /** @var null|RedirectResponse $result */
         $result = Event::dispatch('igniter.socialite.beforeLogin', [$providerUser, $user], true);
         if ($result instanceof RedirectResponse) {
             return $result;

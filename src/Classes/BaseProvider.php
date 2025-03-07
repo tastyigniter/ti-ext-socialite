@@ -8,7 +8,7 @@ use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Models\Settings;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
-use Laravel\Socialite\AbstractUser;
+use Laravel\Socialite\Contracts\User as SocialiteUser;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -103,7 +103,7 @@ abstract class BaseProvider
         if ($ex instanceof InvalidStateException) {
             flash()->error('Invalid State');
         } else {
-            Log::error($ex);
+            Log::error($ex->getMessage());
             flash()->error('Could not read user information from social provider: '.$ex->getMessage());
         }
     }
@@ -147,7 +147,7 @@ abstract class BaseProvider
     /**
      * Obtain the user information from provider.
      *
-     * @return AbstractUser
+     * @return SocialiteUser
      */
     abstract public function handleProviderCallback();
 

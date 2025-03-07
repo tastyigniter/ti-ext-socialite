@@ -25,7 +25,7 @@ class Provider extends Model
     public $table = 'igniter_socialite_providers';
 
     /**
-     * @var array fillable fields
+     * @var array<int, string> fillable fields
      */
     protected $fillable = ['user_type', 'user_id', 'provider', 'provider_id', 'token'];
 
