@@ -1,3 +1,9 @@
+---
+title: "Socialite"
+section: "extensions"
+sortOrder: 100
+---
+
 ## Installation
 
 You can install the extension via composer using the following command:
