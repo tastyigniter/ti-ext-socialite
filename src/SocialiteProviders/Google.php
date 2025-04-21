@@ -65,6 +65,6 @@ class Google extends BaseProvider
     #[Override]
     public function shouldConfirmEmail($providerUser): bool
     {
-        return !strlen($providerUser->email);
+        return !strlen((string) $providerUser->email);
     }
 }
