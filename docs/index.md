@@ -9,7 +9,7 @@ sortOrder: 100
 You can install the extension via composer using the following command:
 
 ```bash
-composer require tastyigniter/ti-ext-socialite:"^4.0" -W
+composer require tastyigniter/ti-ext-socialite -W
 ```
 
 Run the database migrations to create the required tables:
