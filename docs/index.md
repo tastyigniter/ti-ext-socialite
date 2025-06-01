@@ -24,7 +24,7 @@ To enable each social network that you would like to use, you need to configure 
 
 ## Usage
 
-This section explains how to integrate the Socialite extension into your own extension if you need to create social login providers, render social login links, handle provider redirects, and handle provider callbacks. The Socialite extension provides a simple API for managing social login providers.
+This section covers how to integrate the Socialite extension into your own extension if you need to create social login providers, render social login links, handle provider redirects, and handle provider callbacks. The Socialite extension provides a simple API for managing social login providers.
 
 ### Defining providers
 
