@@ -45,7 +45,7 @@ class Extension extends BaseExtension
             'settings' => [
                 'label' => 'Configure Social Login Providers',
                 'description' => 'Configure social login providers with API credentials.',
-                'icon' => 'fa fa-users',
+                'icon' => 'fa fa-share-nodes',
                 'model' => Settings::class,
                 'priority' => 700,
                 'permissions' => ['Igniter.Socialite.Manage'],

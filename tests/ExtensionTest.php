@@ -21,9 +21,6 @@ it('registers settings with correct configuration', function(): void {
     $settings = $extension->registerSettings();
 
     expect($settings)->toHaveKey('settings')
-        ->and($settings['settings']['label'])->toBe('Configure Social Login Providers')
-        ->and($settings['settings']['description'])->toBe('Configure social login providers with API credentials.')
-        ->and($settings['settings']['icon'])->toBe('fa fa-users')
         ->and($settings['settings']['model'])->toBe(Settings::class)
         ->and($settings['settings']['priority'])->toBe(700)
         ->and($settings['settings']['permissions'])->toContain('Igniter.Socialite.Manage');

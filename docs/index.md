@@ -24,6 +24,8 @@ To enable each social network that you would like to use, you need to configure 
 
 ## Usage
 
+This section covers how to integrate the Socialite extension into your own extension if you need to create social login providers, render social login links, handle provider redirects, and handle provider callbacks. The Socialite extension provides a simple API for managing social login providers.
+
 ### Defining providers
 
 A socialite provider class is responsible for building the settings form, setting the required configuration values,
@@ -115,7 +117,7 @@ In this example, the `Facebook` provider will be registered with the alias `face
 
 ### Rendering social login links
 
-To render social login links on your login page, you can use the `listProviderLinks` method on the `ProviderManager` class. The method returns an array of socialite providers with their respective login URLs.
+To render social login links on your login page, you can use the `listProviderLinks` method on the `Igniter\Socialite\Classes\ProviderManager` class. The method returns an array of socialite providers with their respective login URLs.
 
 ```php
 use Igniter\Socialite\Classes\ProviderManager;
@@ -157,7 +159,7 @@ The `name` and `email` fields returned by the provider are automatically used to
 
 ### Confirming user email address
 
-You may want to confirm the user's email address before creating a new user account. Or you may want to allow the user specify their email address if it is not provided by the socialite provider. You can do this by overriding the `shouldConfirmEmail` method on the `ProviderManager` class and returning `true`. The method receives the provider user instance as an argument.
+You may want to confirm the user's email address before creating a new user account. Or you may want to allow the user specify their email address if it is not provided by the socialite provider. You can do this by overriding the `shouldConfirmEmail` method on the `Igniter\Socialite\Classes\ProviderManager` class and returning `true`. The method receives the provider user instance as an argument.
 
 ```php
 public function shouldConfirmEmail($providerUser)
@@ -170,7 +172,7 @@ When the `shouldConfirmEmail` method returns `true`, the user will be redirected
 
 ### The email confirmation page
 
-The email confirmation page is used to confirm the user's email address or specify a new email address. The page should contain a form with an email field and a submit button. After validating the email address, you can use the `setProviderData` method on the `ProviderManager` class to set the email address on the provider user instance, then call the `completeCallback` method to complete the login process.
+The email confirmation page is used to confirm the user's email address or specify a new email address. The page should contain a form with an email field and a submit button. After validating the email address, you can use the `setProviderData` method on the `Igniter\Socialite\Classes\ProviderManager` class to set the email address on the provider user instance, then call the `completeCallback` method to complete the login process.
 
 Here is an example of how to render the email confirmation form in your blade view:
 
@@ -217,9 +219,9 @@ The Local extension provides the following events:
 | ----- | ----------- | ---------- |
 | `igniter.socialite.beforeRedirect` |    Before redirecting to the socialite provider.    |  The provider class instance   |
 | `igniter.socialite.completeCallback` |    After the socialite provider callback is complete, just before creating the user account.    |  The provider class instance and the provider model instance   |
-| `igniter.socialite.beforeLogin` |    Before logging in the user. Used to override the login process.    |  The provider class instance and the user model instance   |
-| `igniter.socialite.login` |    After the user has logged in successfully.    |  The user model instance   |
-| `igniter.socialite.register` |    Before registering the user. Used to override the registration process.    |  The provider class instance and the provider model instance   |
+| `igniter.socialite.beforeLogin` |    Before logging in the user. Used to override the login process.    |  The provider class instance and the user `Igniter\User\Models\User` model instance   |
+| `igniter.socialite.login` |    After the user has logged in successfully.    |  The user `Igniter\User\Models\User` model instance   |
+| `igniter.socialite.register` |    Before registering the user. Used to override the registration process.    |  The provider class instance and the provider `Igniter\Socialite\Models\Provider` model instance   |
 
 Here is an example of hooking an event in the `boot` method of an extension class:
 
