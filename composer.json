@@ -45,8 +45,8 @@
             "name": "Socialite",
             "icon": {
                 "class": "fa fa-users",
-                "color": "#1F4E62",
-                "backgroundColor": "#4FC3F7"
+                "color": "#FFFFFF",
+                "backgroundColor": "#FF4900"
             },
             "homepage": "https://tastyigniter.com/marketplace/item/igniter-socialite"
         },
