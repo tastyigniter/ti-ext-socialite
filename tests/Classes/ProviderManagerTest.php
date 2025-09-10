@@ -132,7 +132,6 @@ it('adds callback to resolveUserTypeCallbacks array', function(): void {
 
     $reflection = new ReflectionClass($providerManager);
     $property = $reflection->getProperty('resolveUserTypeCallbacks');
-    $property->setAccessible(true);
 
     $callbacks = $property->getValue($providerManager);
 
@@ -147,7 +146,6 @@ it('executes resolveUserType callback correctly', function(): void {
 
     $reflection = new ReflectionClass($providerManager);
     $method = $reflection->getMethod('resolveUserTypeCallback');
-    $method->setAccessible(true);
 
     $userType = $method->invoke($providerManager);
 
@@ -158,7 +156,6 @@ it('returns default user type when no callback is provided', function(): void {
     $providerManager = new ProviderManager;
     $reflection = new ReflectionClass($providerManager);
     $method = $reflection->getMethod('resolveUserTypeCallback');
-    $method->setAccessible(true);
 
     $userType = $method->invoke($providerManager);
 
