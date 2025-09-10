@@ -90,7 +90,7 @@ it('handles provider exception correctly', function(): void {
 });
 
 it('extends config correctly', function(): void {
-    $callback = function(array $config, $provider) {
+    $callback = function(array $config, $provider): array {
         $config['extra'] = 'value';
 
         return $config;
