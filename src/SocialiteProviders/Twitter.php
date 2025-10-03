@@ -68,6 +68,6 @@ class Twitter extends BaseProvider
     #[Override]
     public function shouldConfirmEmail($providerUser): bool
     {
-        return !strlen((string) $providerUser->email);
+        return !strlen((string)$providerUser->email);
     }
 }
