@@ -175,7 +175,7 @@ it('runs entry point and redirects to provider', function(): void {
     expect($response->getTargetUrl())->toBe('http://redirect.url');
 });
 
-it('handles provider callback, creates user and returns redirect response', function(): void {
+it('handles provider callback, creates user and returns redirect response', function(string $providerName): void {
     Event::fake();
 
     request()->merge(['success' => 'account']);
@@ -184,10 +184,11 @@ it('handles provider callback, creates user and returns redirect response', func
     $providerUser->token = 'token';
     $providerUser->shouldReceive('getEmail')->andReturn('john@example.com');
     $providerUser->shouldReceive('getName')->andReturn('John Doe');
+    $providerUser->shouldReceive('offsetGet')->andReturnValues(['John', 'Doe'])->twice();
 
     $provider = Mockery::mock(BaseProvider::class)->makePartial();
     $provider->shouldReceive('handleProviderCallback')->andReturn($providerUser);
-    $provider->shouldReceive('getDriver')->andReturn('test');
+    $provider->shouldReceive('getDriver')->andReturn($providerName);
 
     $providerManager = Mockery::mock(ProviderManager::class)->makePartial();
     $providerManager->shouldReceive('makeProvider')->andReturn($provider);
@@ -200,7 +201,10 @@ it('handles provider callback, creates user and returns redirect response', func
     Event::assertDispatched('igniter.socialite.register');
     Event::assertDispatched('igniter.socialite.beforeLogin');
     Event::assertDispatched('igniter.socialite.login');
-});
+})->with([
+    'google',
+    'facebook',
+]);
 
 it('handles provider callback, retrieves user and returns redirect response', function(): void {
     Event::fake();

@@ -319,6 +319,17 @@ class ProviderManager
             'status' => true,
         ];
 
+        switch ($provider->provider) {
+            case 'facebook':
+                $data['first_name'] = $providerUser->offsetGet('first_name');
+                $data['last_name'] = $providerUser->offsetGet('last_name');
+                break;
+            case 'google':
+                $data['first_name'] = $providerUser->offsetGet('given_name');
+                $data['last_name'] = $providerUser->offsetGet('family_name');
+                break;
+        }
+
         if (!$user = Event::dispatch('igniter.socialite.register', [$providerUser, $provider], true)) {
             $user = Auth::getProvider()->register($data, true);
         }
