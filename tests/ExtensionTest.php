@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Igniter\Socialite\Tests;
 
-use Igniter\Admin\Classes\AdminController;
 use Igniter\Admin\Widgets\Form;
 use Igniter\Socialite\Classes\ProviderManager;
 use Igniter\Socialite\Extension;
@@ -56,7 +55,7 @@ it('extends settings form field correctly', function(): void {
     {
         public function __construct() {}
 
-        public function getController(): AdminController
+        public function getController(): Extensions
         {
             return new Extensions;
         }
