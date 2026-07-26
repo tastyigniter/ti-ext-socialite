@@ -328,6 +328,10 @@ class ProviderManager
                 $data['first_name'] = $providerUser->offsetGet('given_name');
                 $data['last_name'] = $providerUser->offsetGet('family_name');
                 break;
+            case 'sign-in-with-apple':
+                $data['first_name'] = $providerUser->offsetGet('first_name') ?? $providerUser->getName();
+                $data['last_name'] = $providerUser->offsetGet('last_name');
+                break;
         }
 
         if (!$user = Event::dispatch('igniter.socialite.register', [$providerUser, $provider], true)) {

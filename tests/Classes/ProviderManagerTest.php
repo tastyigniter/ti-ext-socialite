@@ -204,6 +204,7 @@ it('handles provider callback, creates user and returns redirect response', func
 })->with([
     'google',
     'facebook',
+    'sign-in-with-apple',
 ]);
 
 it('handles provider callback, retrieves user and returns redirect response', function(): void {

@@ -15,12 +15,15 @@
         "login",
         "facebook",
         "twitter",
-        "google"
+        "google",
+        "apple"
     ],
     "require": {
         "tastyigniter/core": "^v4.0",
         "tastyigniter/ti-ext-user": "^v4.0",
-        "laravel/socialite": "^5.2"
+        "genealabs/laravel-sign-in-with-apple": "^13.0",
+        "laravel/socialite": "^5.2",
+        "lcobucci/jwt": "^5.0"
     },
     "require-dev": {
         "larastan/larastan": "^3.0",
