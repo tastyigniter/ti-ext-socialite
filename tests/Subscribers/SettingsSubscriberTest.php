@@ -26,6 +26,16 @@ it('subscribes to admin.form.extendFields event', function(): void {
         ->and($events['admin.form.extendFields'])->toBe('extendSettingsFormFields');
 });
 
+it('resets apple client secret expiry when settings model is saved', function(): void {
+    $subscriber = Mockery::mock(SettingsSubscriber::class)->makePartial();
+    $subscriber->shouldReceive('resetClientSecretExpiry')->once()->with(Mockery::type(Settings::class));
+
+    $subscriber->subscribe(Mockery::mock(Dispatcher::class));
+
+    $model = new Settings;
+    $model->fireEvent('model.afterSave');
+});
+
 it('extends settings form fields for socialite providers', function(): void {
     $form = new class extends Form
     {
