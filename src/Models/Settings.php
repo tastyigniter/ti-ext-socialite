@@ -9,7 +9,9 @@ use Igniter\Socialite\Classes\ProviderManager;
 use Igniter\System\Actions\SettingsModel;
 
 /**
- * Settings Model
+ * @method static mixed get(string $key, mixed $default = null)
+ * @method static bool set(string|array $key, mixed $value = null)
+ * @mixin SettingsModel
  */
 class Settings extends Model
 {
