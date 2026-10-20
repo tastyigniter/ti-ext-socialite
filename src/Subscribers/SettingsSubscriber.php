@@ -12,6 +12,8 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 class SettingsSubscriber
 {
+    protected bool $isResettingClientSecretExpiry = false;
+
     public function subscribe(Dispatcher $events): array
     {
         Settings::extend(function(Settings $model): void {
@@ -41,11 +43,17 @@ class SettingsSubscriber
 
     public function resetClientSecretExpiry(Settings $model): void
     {
+        if ($this->isResettingClientSecretExpiry) {
+            return;
+        }
+
         $providers = $model->data['providers'] ?? [];
 
         if (!array_get($providers, 'sign-in-with-apple')) {
             return;
         }
+
+        $original = $providers;
 
         if (array_get($providers, 'sign-in-with-apple.generate_secret', false)) {
             array_forget($providers, 'sign-in-with-apple.client_secret_expiry');
@@ -60,6 +68,16 @@ class SettingsSubscriber
             array_set($providers, 'sign-in-with-apple.redirect', $model->getProvider('sign-in-with-apple')->makeEntryPointUrl('callback'));
         }
 
-        $model->set(['providers' => $providers]);
+        if ($providers === $original) {
+            return;
+        }
+
+        $this->isResettingClientSecretExpiry = true;
+
+        try {
+            $model->set(['providers' => $providers]);
+        } finally {
+            $this->isResettingClientSecretExpiry = false;
+        }
     }
 }

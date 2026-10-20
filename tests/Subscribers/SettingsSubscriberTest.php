@@ -131,3 +131,48 @@ it('does nothing when apple provider settings are missing', function(): void {
 
     $this->subscriber->resetClientSecretExpiry($model);
 });
+
+it('does not save when apple provider settings are already normalized', function(): void {
+    $model = Mockery::mock(Settings::class)->makePartial();
+    $model->data = [
+        'providers' => [
+            'sign-in-with-apple' => [
+                'generate_secret' => false,
+                'login' => 'https://example.test/login',
+                'redirect' => 'https://example.test/callback',
+            ],
+        ],
+    ];
+    $model->shouldNotReceive('set');
+    $model->shouldNotReceive('getProvider');
+
+    $this->subscriber->resetClientSecretExpiry($model);
+});
+
+it('does not recurse when saving normalized apple settings', function(): void {
+    $provider = Mockery::mock(Apple::class);
+    $provider->shouldReceive('makeEntryPointUrl')->once()->with('callback')->andReturn('https://example.test/callback');
+
+    $providerManager = Mockery::mock(ProviderManager::class);
+    $providerManager->shouldReceive('resolveProvider')->once()->with('sign-in-with-apple')->andReturn(Apple::class);
+    $providerManager->shouldReceive('makeProvider')->once()->andReturn($provider);
+    app()->instance(ProviderManager::class, $providerManager);
+
+    $model = Mockery::mock(Settings::class)->makePartial();
+    $model->data = [
+        'providers' => [
+            'sign-in-with-apple' => [
+                'generate_secret' => true,
+                'client_secret_expiry' => now()->addMonth(),
+            ],
+        ],
+    ];
+    $model->shouldReceive('getProvider')->once()->with('sign-in-with-apple')->andReturn($provider);
+    $model->shouldReceive('set')->once()->andReturnUsing(function() use ($model): bool {
+        $this->subscriber->resetClientSecretExpiry($model);
+
+        return true;
+    });
+
+    $this->subscriber->resetClientSecretExpiry($model);
+});
