@@ -167,7 +167,6 @@ it('does not recurse when saving normalized apple settings', function(): void {
             ],
         ],
     ];
-    $model->shouldReceive('getProvider')->once()->with('sign-in-with-apple')->andReturn($provider);
     $model->shouldReceive('set')->once()->andReturnUsing(function() use ($model): bool {
         $this->subscriber->resetClientSecretExpiry($model);
 

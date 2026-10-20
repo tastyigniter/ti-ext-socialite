@@ -158,9 +158,7 @@ class ProviderManager
      */
     public function makeProvider($className, $providerInfo = null)
     {
-        if (is_null($providerInfo)) {
-            $providerInfo = $this->findProvider($className);
-        }
+        $providerInfo ??= $this->findProvider($className);
 
         if (!class_exists($className)) {
             throw new SystemException(sprintf("The socialite provider class name '%s' has not been registered", $className));
@@ -335,7 +333,7 @@ class ProviderManager
         }
 
         if (!$user = Event::dispatch('igniter.socialite.register', [$providerUser, $provider], true)) {
-            $user = Auth::getProvider()->register($data, true);
+            return Auth::getProvider()->register($data, true);
         }
 
         return $user;

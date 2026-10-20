@@ -325,3 +325,30 @@ it('bails when beforeLogin event halts flow', function(): void {
 
     expect($response->getTargetUrl())->toBe('http://redirect.url');
 });
+
+it('uses the user returned by the register event', function(): void {
+    $customer = Customer::factory()->create(['email' => 'existing@example.com']);
+
+    Event::listen('igniter.socialite.register', fn(): Customer => $customer);
+
+    request()->merge(['success' => 'account']);
+    $providerUser = Mockery::mock(AbstractUser::class);
+    $providerUser->id = 1;
+    $providerUser->token = 'token';
+    $providerUser->shouldReceive('getEmail')->andReturn('new@example.com');
+    $providerUser->shouldReceive('getName')->andReturn('New User');
+
+    $provider = Mockery::mock(BaseProvider::class)->makePartial();
+    $provider->shouldReceive('handleProviderCallback')->andReturn($providerUser);
+    $provider->shouldReceive('getDriver')->andReturn('test');
+
+    $providerManager = Mockery::mock(ProviderManager::class)->makePartial();
+    $providerManager->shouldReceive('makeProvider')->andReturn($provider);
+    $providerManager->registerProvider(BaseProvider::class, ['code' => 'test']);
+
+    $response = $providerManager->runEntryPoint('test', 'callback');
+
+    expect($response->getTargetUrl())->toBe('http://localhost/account')
+        ->and(Customer::where('email', 'new@example.com')->exists())->toBeFalse()
+        ->and(Provider::query()->latest('id')->first()->user_id)->toBe($customer->getKey());
+});
